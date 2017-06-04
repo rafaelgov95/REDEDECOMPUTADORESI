@@ -7,9 +7,18 @@
 
 \bibitem[Nascimento 2016]{dltec}
 \abntrefinfo{Nascimento}{NASCIMENTO}{2016}
-{NASCIMENTO, M.~B. do. \emph{Protocolo ICMP, Ping e Traceroute}.
-[S.l.], 2016. Dispon{\'\i}vel em:
+{NASCIMENTO, M.~B. do. Protocolo icmp, ping e traceroute.
+Out. 2016.
+Dispon{\'\i}vel em:
   \url{http://www.dltec.com.br/blog/cisco/protocolo-icmp-ping-e-traceroute/}.
   Acesso em: 01 jun. 2017.}
+
+\bibitem[Reis 2015]{boson}
+\abntrefinfo{Reis}{REIS}{2015}
+{REIS, F. dos. Protocolo icmp, ping e traceroute.
+Nov. 2015.
+Dispon{\'\i}vel em:
+  \url{http://www.bosontreinamentos.com.br/redes-computadores}. Acesso em: 02
+  jun. 2017.}
 
 \end{thebibliography}
