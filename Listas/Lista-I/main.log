@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.6.3)  4 JUN 2017 18:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.6.3)  5 JUN 2017 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1019,7 +1019,11 @@ Sidefoothsep and sidefootwidth: 7pt and 49pt
 Sidefootvsep and sidefootheight: 13.6pt and 594.32022pt
 ******************************************************
 
-(./main.aux)
+(./main.aux
+
+LaTeX Warning: Label `Rotulo' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 142.
@@ -1146,8 +1150,21 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             See the microtype manual for details.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.bbl (./main.br
-f)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] <./trauceroute-1.p
+ng, id=42, 1304.875pt x 903.375pt>
+File: ./trauceroute-1.png Graphic file (type png)
+
+<use ./trauceroute-1.png>
+Package pdftex.def Info: ./trauceroute-1.png used on input line 302.
+(pdftex.def)             Requested size: 391.46552pt x 271.01459pt.
+ <./google-earh.png, id=44, 1927.2pt x 1084.05pt>
+File: ./google-earh.png Graphic file (type png)
+
+<use ./google-earh.png>
+Package pdftex.def Info: ./google-earh.png used on input line 313.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
+ [4] [5 <./trauceroute-1.png> <./google-earh.png>]
+(./main.bbl (./main.brf)
 \tf@brf=\write5
 \openout5 = `main.brf'.
 
@@ -1155,37 +1172,38 @@ f)
 bibitemlist
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 15.
-) [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 257.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 257.
+) [6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 350.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 350.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 257.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 257.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 350.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 350.
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: EF760B237FF397D90AEF5FEAEDC7A89F;92.
+(rerunfilecheck)             Checksum: 215DE1EFC62739F82826F02A16C08C2D;138.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 257.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 350.
  ) 
 Here is how much of TeX's memory you used:
- 12931 strings out of 493013
- 191359 string characters out of 6135683
- 448245 words of memory out of 5000000
- 16215 multiletter control sequences out of 15000+600000
- 48940 words of font info for 73 fonts, out of 8000000 for 9000
+ 12994 strings out of 493013
+ 192175 string characters out of 6135683
+ 448313 words of memory out of 5000000
+ 16246 multiletter control sequences out of 15000+600000
+ 49604 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,38p,655b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,12n,38p,695b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
 public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmss12.pfb>
-Output written on main.pdf (3 pages, 160400 bytes).
+/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss1
+2.pfb>
+Output written on main.pdf (6 pages, 2638503 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
- 20 named destinations out of 1000 (max. 500000)
- 19041 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 175 PDF objects out of 1000 (max. 8388607)
+ 154 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 19123 words of extra memory for PDF output out of 20736 (max. 10000000)
 
