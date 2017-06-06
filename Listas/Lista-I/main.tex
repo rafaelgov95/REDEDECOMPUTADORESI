@@ -340,24 +340,32 @@ A cumutação de pacotes que a Internet utiliza visa percorrer os melhores camin
 	\end{figure}
 
 		\item 
-		Na Figura \ref{rota-6}, nessa parte dois pacotes são encaminahdos para o roteador de endereço te-0-0-0-0-ETCE-DF-ROTB-01.brasiltelecom.net.br, esse roteador e nacional se encontra em Brasilia, o mesmo visualiza o TTL zerado, dos pacotes retorne mensagens ICMP para o roteador inicial da requisição com tempo de 68.123 ms e 73.770 ms, e um pacote é encaminhado direto para o roteador do servidor Carrier-Grade NAT RFC6598 de endereço 100.120.64.14, Internacional situado no Oceano Atlântico, que por sua vez, visualiza o TLL zerado retornando uma mensagem ICMP para o roteador inical, o RTT desse roteador é de 72.279 ms.
+		Figura \ref{rota-6}, nessa parte dois pacotes são encaminahdos para o roteador de endereço te-0-0-0-0-ETCE-DF-ROTB-01.brasiltelecom.net.br, esse roteador e nacional se encontra em Brasilia, o mesmo visualiza o TTL zerado, dos pacotes retorne mensagens ICMP para o roteador inicial da requisição com tempo de 68.123 ms e 73.770 ms, e um pacote é encaminhado direto para o roteador do servidor Carrier-Grade NAT RFC6598 de endereço 100.120.64.14, Internacional situado no Oceano Atlântico, que por sua vez, visualiza o TLL zerado retornando uma mensagem ICMP para o roteador inical, o RTT desse roteador é de 72.279 ms.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=17cm,height=1cm]{./rota-6.png}
+		\includegraphics[width=17cm,height=1.3cm]{./rota-6.png}
 		\caption{Pacotes sendo comutados pelos roteadores do provedor nacional e internatcional}
 		\label{rota-6}
 	\end{figure}
 
-		\item Na Figura \ref{rota-7} os pacotes são comutados até o um provedor Carrier-Grade NAT RFC6598, localizado no Oceano Atlântico, com endereço de ip 100.122.17.130 o pacote encaminhado para esse endereço teve um tempo de RTT de 200.617 ms, ja o pacote encaminhado para o mesmo servidor porém com o ip  100.122.17.148 teve um tempo de RTT de 179.446 ms.  
+		\item Na Figura \ref{rota-7}, os pacotes são comutados até o um provedor Carrier-Grade NAT RFC6598, localizado no Oceano Atlântico, com endereço de ip 100.122.17.130 o pacote encaminhado para esse endereço teve um tempo de RTT de 200.617 ms, ja o pacote encaminhado para o mesmo servidor porém com o ip  100.122.17.148 teve um tempo de RTT de 179.446 ms.  
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=17cm,height=1cm]{./rota-7.png}
-		\caption{Pacotes sendo comutados pelo servidor Internacional Carrier-Grade NAT RFC6598 situado no Oceano Atlântico}
+		\includegraphics[width=17cm,height=1.3cm]{./rota-7.png}
+		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
 		\label{rota-7}
 	\end{figure}
 	 	
+	 	\item Na Figura \ref{rota-8}, assim como na Figura \ref{rota-7} os pacotes são enviados até o enlace de um conjunto de roteadores no Oceano Atlântico conhecido como Carrier-Grade NAT RFC6598, que é uma abordagem para o design da rede IPv4 em que os sites finais, em particular as redes residenciais, são configurados com endereços de rede privada que são convertidos para endereços IPv4 públicos por Dispositivos de rede de endereço de rede da middlebox incorporados na rede do operador de rede, permitindo o compartilhamento de pequenos pools de endereços públicos entre vários sites finais. Isso altera a função NAT ea sua configuração das instalações do cliente para a rede do provedor de serviços da Internet, por isso que a sonda do Traceroute encontra alguns endereços ips vinculado a esse provedor,o endereço de ip 100.122.17.149 com tempo de RTT de 191.133 ms, no endereço ip 100.122.17.171 com tempo de RTT de 180.897 e no endereço ip 100.122.17.167 com tempo de 171.525 ms.\cite{kuarsingh2014carrier}
+	 	
+	 	\begin{figure}[H]
+	 		\centering
+	 		\includegraphics[width=17cm,height=1.5cm]{./rota-8.png}
+	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\label{rota-8}
+	 	\end{figure}
  \end{enumerate}
 
 	 

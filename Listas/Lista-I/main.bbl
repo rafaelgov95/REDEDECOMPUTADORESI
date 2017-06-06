@@ -5,6 +5,12 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{v-1.9.6 }
 
+\bibitem[Kuarsingh e Cianfarani 2014]{kuarsingh2014carrier}
+\abntrefinfo{Kuarsingh e Cianfarani}{KUARSINGH; CIANFARANI}{2014}
+{KUARSINGH, V.; CIANFARANI, J. \emph{Carrier-Grade NAT (CGN) Deployment with
+  BGP/MPLS IP VPNs}.
+[S.l.], 2014.}
+
 \bibitem[Nascimento 2016]{dltec}
 \abntrefinfo{Nascimento}{NASCIMENTO}{2016}
 {NASCIMENTO, M.~B. do. Protocolo icmp, ping e traceroute.
