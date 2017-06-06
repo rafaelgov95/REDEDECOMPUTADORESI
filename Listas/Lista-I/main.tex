@@ -18,7 +18,7 @@
 	a4paper,			% tamanho do papel. 
 	% -- opções da classe abntex2 --
 	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
-	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	section=TITLE,		% títulos de seções convertidos em letras maiúsculas
 	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
 	%subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
 	% -- opções do pacote babel --
@@ -44,6 +44,7 @@
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{float}
 \usepackage{microtype} 			% para melhorias de justificação
+
 % ---
 		
 % ---
@@ -57,23 +58,6 @@
 % ---
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
 \usepackage[alf]{abntex2cite}	% Citações padrão ABNT
-% ---
-
-% ---
-% Configurações do pacote backref
-% Usado sem a opção hyperpageref de backref
-\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
-% Texto padrão antes do número das páginas
-\renewcommand{\backref}{}
-% Define os textos da citação
-\renewcommand*{\backrefalt}[4]{
-	\ifcase #1 %
-		Nenhuma citação no texto.%
-	\or
-		Citado na página #2.%
-	\else
-		Citado #1 vezes nas páginas #2.%
-	\fi}%
 % ---
 
 % ---
@@ -97,7 +81,7 @@
      	%pagebackref=true,
 		pdftitle={\@title}, 
 		pdfauthor={\@author},
-    	pdfsubject={Modelo de artigo científico com abnTeX2},
+    	pdfsubject={Artigo},
 	    pdfcreator={LaTeX with abnTeX2},
 		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
 		colorlinks=true,       		% false: boxed links; true: colored links
@@ -161,13 +145,12 @@
 
 % resumo em português
 \begin{resumoumacoluna}
- Este artigo tem como objetivo uma apresentação do funcionamento do Traceroute uma ferramenta de gerenciamento de rede. O traceroute é utilizado para detectar falhas como, por exemplo, gateways intermediários que descartam pacotes ou rotas que excedem a capacidade de um datagrama ip entre outras. Também será de vital importância para esse artigo uma abortagem ao seus protrocolo e o funcionamento dos mesmos.
- 
+ Este artigo tem como objetivo uma apresentação do funcionamento do Traceroute, uma ferramenta de gerenciamento de rede. O Traceroute é utilizado para detectar falhas como, por exemplo, gateways intermediários que descartam pacotes ou rotas que excedem a capacidade de um datagrama ip entre outras. Também será de vital importância para esse artigo uma abortagem ao seus protrocolo e o funcionamento dos mesmos.
  
  \vspace{\onelineskip}
  
  \noindent
- \textbf{Palavras-chaves}: Roteamento, IP, UDP ,TCP SYN, Ping.
+ \textbf{Palavras-chaves}: Roteamento, Análise, UDP ,TCP, ICMP.
 \end{resumoumacoluna}
 
 % ]  				% FIM DE ARTIGO EM DUAS COLUNAS
@@ -183,40 +166,62 @@
 % ----------------------------------------------------------
 \section*{Introdução}
 \addcontentsline{toc}{section}{Introdução}
-A Internet é uma agregação grande e complexa de hardware de rede, conectada entre eles por gateways. Seguir a rota que os pacotes seguem (ou encontrar o gateway que está descartando seus pacotes) pode ser difícil. 
-Nesse artigo estaremos abortando o Trouceroute porém, será levantado protolocos que o trouceroute utiliza para seu funcionamento porém muito breve.
+A Internet é uma agregação grande e complexa de hardware de rede, conectados entre si por gateways. Seguir a rota que os pacotes seguem (ou encontrar o gateway que está descartando seus pacotes) pode ser difícil. 
+Nesse artigo estaremos abordando o Trouceroute, será levantado também alguns conceitos dos protocolos por trás do seu funcionamento.
 
 \section{Protocolos}
 
 \subsection{IPv4 - 'Campo TTL'}
 O IP é o elemento comum encontrado na Internet pública dos dias de hoje. É descrito no RFC 791 da IETF, que foi pela primeira vez publicado em Setembro de 1981. Este documento descreve o protocolo da camada de rede mais popular e atualmente em uso. Esta versão do protocolo é designada de versão 4, ou IPv4. O IPv6 tem endereçamento de origem e destino de 128 bits, oferecendo mais endereçamentos que os 32 bits do IPv4.
 
-Entre os 12 campos do IPv4 descrito no RFC 791 falaremos do TTL é campo de oito bits, o TTL (time to live, ou seja, tempo para viver) ajuda a prevenir que os datagramas persistam (ex. andando aos círculos) numa rede. Historicamente, o campo TTL limita a vida de um datagrama em segundos, mas tornou-se num campo de contagem de nós caminhados. Cada comutador de pacotes que um datagrama atravessa decrementa o campo TTL em um valor. Quando o campo TTL chega a zero, o pacote não é seguido por um comutador de pacotes e é descartado.
+Entre os 12 campos do IPv4 descrito no RFC 791 falaremos do TTL, que seria um campo de oito bits presente no IPv4, o TTL (time to live, ou seja, tempo para viver) ajuda a prevenir que os datagramas persistam (ex. andando aos círculos cumutadores) numa rede. O campo TTL limita a vida de um datagrama em segundos, mas tornou-se num campo de contagem de nós caminhados. Cada comutador de pacotes que um datagrama atravessa decrementa o campo TTL em um valor. Quando o campo TTL chega a zero, o pacote não é seguido por um comutador de pacotes e é descartado.
 O propósito do TTL é evitar que datagramas entrem em um loop de roteamento, o que pode ocorrer devido a algum tipo de falha durante o roteamento dos pacotes. Quando um roteador recebe um datagrama cujo TTL é igual a 0 (zero), ele não o encaminhará mais. Em vez disso, o roteador irá descartar o pacote e enviar de volta ao host que o originou uma mensagem ICMP do tipo Tempo Excedido. Essa mensagem contém o endereço IP do roteador como endereço de origem - e esse é o segredo do traceroute.\cite{boson}
 
 
 \subsection{ICMP}
-
-O protocolo ICMP (Internet Control Message Protocol - Protocolo de Mensagens de Controle de Internet) é um protocolo que permite gerenciar as informações relativas aos erros nas máquinas conectadas. Devido aos poucos controles que o protocolo IP realiza, ele não corrige estes erros mas os mostra para os protocolos das camadas vizinhas. Assim, o protocolo ICMP é usado por todos os roteadores para assinalar um erro, chamado de Delivery Problem ou, em português, Problema de Entrega. 
-
-O ICMP é um protocolo integrante do Protocolo IP, definido pela RFC 792, e utilizado para fornecer relatórios de erros ao host que deu origem aos pacotes enviados na rede. Qualquer computador que utilize o protocolo IP precisa aceitar as mensagens ICMP e alterar o seu comportamento de acordo com o erro relatado.
-
-Os gateways (roteadores) devem também estar programados para enviar mensagens ICMP quando receberem pacotes que provoquem algum tipo de erro ou detectarem algum problema listado no protocolo ICMP. O ICMP é transportado no campo de dados do pacote IP e identificado como tipo de protocolo “1” pelo cabeçalho do IP.
-
-As principais mensagens de erro ou informacionais do ICMP geralmente são enviadas automaticamente em uma das seguintes situações:
-\begin{enumerate}
-	\item Um pacote IP não consegue chegar ao seu destino, por exemplo, quando o tempo de vida (TTL) do pacote está expirado (o contador chegou à zero). Esta mensagem é o tempo de vida expirado ou “time exceeded”.
-	
-    \item O roteador não consegue retransmitir os pacotes na frequência adequada, ou seja, o roteador está congestionado (mensagem “source quench”).
-    
-    \item O roteador indica uma rota melhor para o host que está enviando pacotes (mensagem de redirecionamento de rota ou “redirect”).
+ O protocolo ICMP (Internet Control Message Protocol - Protocolo de Mensagens de Controle de Internet), especificado no [RFC 792], é usada por hospedeiros e roteadores para comunicar informaç\~oes de camaa de rede entre si. A utilização mais comum do ICMP é para comunicação de erros. Por exemplo, ao rodar uma sessão Telnet, FTP ou HTTP, é possivel que você já tenha encontrado uma mensagem de erro como "Rede Inalcançável". Essa mensagem teve sua origem no ICMP. Em algum ponto, um roteador IP não conseguiu descobrir um caminho para o hospediero especificado em sua aplicação Telnet, FTP ou HTTP. O roteador criou e enviou uma mensagem ICMP do tipo 3 a seu hospedeiro indicando o erro.
+ O ICMP é frequentemente considerado parte do IP, mas em termos de arquitetura, está logo acima do IP, pois mensagens ICMP são carregadas dentro de datagrams IP. Isto é, mesagens ICMP são carregadas como carga útil IP, Exatamente como segmentos TCP ou UDP, que também sã carregados como carga útil IP. De maneira semelhante, quando um hospedeiro recebe um datagrama IP com ICMP especificado como protocolo de camada superior, ele demultiplexa o conteúdo do datagrama para ICMP, exatamente como demultiplexaria o conteúdo de um datagrama para TCP ou UDP.
+ Mensagens ICPM têm um campo de tipo e um campo de código. Além disso, contêm o cabeçalho eos primeiros 8 bytes do datagrama IP que causou a criação da mensagem ICMP em primeiro lugar (de modo que o remetente pode determinar o datagrama que casou o erro). Assim, o protocolo ICMP é usado por todos os roteadores para assinalar um erro, chamado de Delivery Problem ou, em português, Problema de Entrega. \cite{Kurose}
  
-	\item Quando um host de destino ou rota não está alcançável (mensagem “destination unreachable” ou destino inalcançável).
+ Alguns tipos de mensagens ICMP selecionadas são mostradas na Tabela \ref{table-ICMP}, note que mensgens ICMP não são usadas somente para sinalizar condições de erro.
+ Uma outra mensagem ICMP interessante é a de redução de fonte. Essa mensagem é pouco usada na prática sua finalidade original era realizar controle de congestionamento, permitindo que o roteador congestionado enviasse uma mensagem ICMP de redução de fonte a um hospedeiro para obrigar esse hospedeiro a reduzir sua velocidade de trasmissão.
+ 
+ As principais mensagens de erro ou informacionais do ICMP geralmente são enviadas automaticamente em uma das seguintes situações:
+ \begin{enumerate}
+ 	\item Um pacote IP não consegue chegar ao seu destino, por exemplo, quando o tempo de vida (TTL) do pacote está expirado (o contador chegou à zero). Esta mensagem é o tempo de vida expirado ou “time exceeded”.
+ 	
+ 	\item O roteador não consegue retransmitir os pacotes na frequência adequada, ou seja, o roteador está congestionado (mensagem “source quench”).
+ 	
+ 	\item O roteador indica uma rota melhor para o host que está enviando pacotes (mensagem de redirecionamento de rota ou “redirect”).
+ 	
+ 	\item Quando um host de destino ou rota não está alcançável (mensagem “destination unreachable” ou destino inalcançável).
+ 	
+ 	\item Quando o host ou o roteador descobrem um erro de sintaxe no cabeçalho do IP (mensagem “parameter problem”). 
+ \end{enumerate}
+	Existem diversas outras mensagens que o ICMP pode fornecer e cada uma é representada por um tipo e código.\cite{dltec}
+ \begin{table}[H]
+ 	\centering
+ 	\caption{Tipos de mensagens ICMP}
+ 	\label{table-ICMP}
+ 	\begin{tabular}{lllll}
+ 		\cline{1-3}
+\textbf{Tipo de mensagem ICMP} &	\textbf{Código}& \textbf{Descrição}\\ \cline{1-3}
+ 	    0 &   0&   resposta de eco(para ping)&    \\ \cline{1-3}
+ 		3 &   0&  rede de destino inalcançavel&    \\ \cline{1-3}
+ 		3 &   1&  hospedeiro de destino inalcançavel&    \\ \cline{1-3}
+ 		3 &   2&  protocolo de destino inalcançavel&   \\ \cline{1-3}
+ 		3 &   3&  porta de destino inalcançavel&    \\ \cline{1-3}
+ 		3 &   6&  rede de destino desconhecida&    \\ \cline{1-3}
+ 		3 &   7&  hospedeiro de destino desconhecido&     \\ \cline{1-3}
+ 		4 &   0&  redução da fonte(controle de congestionamento)&    \\ \cline{1-3}
+ 		8 &   0&  solicitação de eco&    \\ \cline{1-3}
+ 		9 &   0&  anúncio do roteador&    \\ \cline{1-3}
+ 		10 &  0&  descoberta do roteador&    \\ \cline{1-3}
+ 		11 &  0&  TLL expirado&    \\ \cline{1-3}
+ 		12 &  0&  cabeçalho IP inválido&    \\ \cline{1-3}
+ 	\end{tabular}
+ \end{table}
 
-	\item Quando o host ou o roteador descobrem um erro de sintaxe no cabeçalho do IP (mensagem “parameter problem”). 
-\end{enumerate}
-
-Existem diversas outras mensagens que o ICMP pode fornecer e cada uma é representada por um tipo ou código.\cite{dltec}
 
 
 \section{Traceroute}
@@ -224,9 +229,20 @@ O utilitário traceroute, que foi escrito por Van Jacobson em 1987, é uma ferra
 
 \subsection{Funcionamento}
 Traceroute utiliza o campo TTL "time to live" do protocolo IP e tenta obter uma resposta ICMP TIME\_EXCEEDED de cada gateway ao longo do caminho para algum host.
-Toda vez que um datagrama chega a um roteador, seu TTL é decrementado em um antes de ser encaminhado adiante. O propósito do TTL é evitar que datagramas entrem em um loop de roteamento, o que pode ocorrer devido a algum tipo de falha durante o roteamento dos pacotes. Quando um roteador recebe um datagrama cujo TTL é igual a 0 (zero), ele não o encaminhará mais. Em vez disso, o roteador irá descartar o pacote e enviar de volta ao host que o originou uma mensagem ICMP do tipo Tempo Excedido. Essa mensagem contém o endereço IP do roteador como endereço de origem - e esse é o segredo do traceroute.\cite{boson}
 
+O Traceroute nos permite acompanhar a rota de um hospedeiro a qualquer outro hospedeiro do mundo. O interessante é que o Traceroute é implementado com mesagens ICMP. Para determinar os nomes e endereços de roteadores entre a fonte e o destino, o Traceroute da fonte envia uma série de datagramas comuns ao destino. O primeiro desses datagramas tem um TTL de 1, o segundo tem TTL de 2, o terceiro tem um TTL de 3 e assim por diante. A fonte também aciona temporizadores para cada um dos datagramas. Quando o enésimo datagrama chega ao enésimo roteador, o eńesimo roteador observa que o TTL do datagrama acabou de expirar (seu TTL é decrementado em um antes de ser encaminhado adiante. O propósito do TTL é evitar que datagramas entrem em um loop de roteamento, o que pode ocorrer devido a algum tipo de falha durante o roteamento dos pacotes. Quando um roteador recebe um datagrama cujo TTL é igual a 0 (zero), ele não o encaminhará mais. Em vez disso, o roteador irá descartar o pacote e enviar de volta ao host que o originou uma mensagem ICMP). Segundo as regras do protocolo IP, o roteador descarta o datagrama e envia uma mensagem ICMP de aviso á fonte (tipo 11 código 10, para maiores informações consultar ....). Essa mensagem de aviso inclui o nome do roteador e, seu endereço IP. Quando chega á fonte, a mensagem obtém, do temporizador, o tempo de viagem de ida e voltae, da mensagem ICMP, o nome e o endereço IP do enésimo roteador.\cite{Kurose}
+ 
+O Traceroute sabe quando deve parar de enviar seguimentos UDP, quando uma mensagem chega ao hospedeiro de destino. Como esse datagrama contém um seguimento UDP com um número de porta improvavel, o hospedeiro de destino devolve à fonte uma mensagem ICMP indicando que porta não pôde ser alcançada(mensagem tipo 3, código 3). Quando recebe essa mensagem ICMP particular, o hospediro da fonte sabe que não precisa enviar mais pacotes de sondagem.(Na verdade, o programa Traceroute padrão envia conjuntos de três pacotes com o mesmo TLL, assim, o Rraceroute proe três resultados para cada TLL). Desse modo, o hospedeiro da fonte fica a par do número e das identidades de roteadores que estão entre ele e o hospedeiro de destino e o tempo de viagem de ida e volta entre os dois hospedeiros. Note que o programa cliente Traceroute tem de ser capaz de instruir o sistema operacional para que este gere datagramas UDP com valores especifícos de TLL. Também tem de poder ser avisado por seu sistema operacional quando chegam mensagens ICMP.
 
+Agora que você entende como o Traceroute funciona, é provável que queira brinca um pouco com ele, esse será o proximo passo desse Artigo.
+
+\subsection{Linux X Windows}
+O comando Unix / Linux `traceroute` e os comandos do` tracert` do Microsoft Windows 'executam a tarefa de rastreamento de caminhos de rede, mas eles o fazem de maneiras ligeiramente diferentes. Ambas as ferramentas para rastreamento de rotas de rede enviam um pacote com TTL (Time To Live) configurado para 1 e denunciam a sua destinação. Então, eles enviam um pacote com TTL = 2 e relatam seu destino. Eles continuam até que os pacotes alcancem seu destino final ou o limite TTL seja excedido. A diferença é que Unix / Linux ` traceroute` usa pacotes UDP (User Datagram Protocol) para um número de porta alto aleatório, enquanto o Microsoft Windows usa pacotes ICMP (Internet Control Message Protocol). Essa diferença é crítica ao tentar entender por que o traceroute às vezes falha. Os conjuntos de regras de firewall e as listas de controle de acesso do roteador (ACLs) entre você e o destino devem ser examinados para determinar se eles permitem as altas portas UDP (números de portas acima de 1024) e / ou ICMP.\cite{tech-faq}
+
+Além disso, as opções de linha de comando para Microsoft Windows `tracert` diferem das opções de linha de comando para Unix / Linux` traceroute`. No entanto, as opções de linha de comando para Unix / Linux `traceroute` também diferem entre as versões do Unix. Leia a página do manual para o seu sistema Unix / Linux para explorar as opções de solução de problemas disponíveis.
+
+Outras diferenças são que o Windows enviará uma solicitação DNS PTR desde o início e, em seguida, enviará solicitações ICMP ECHO. Em cada salto, ele enviará uma solicitação de DNS PTR e depois passará para o próximo salto. 
+O Linux começa com o envio de pacotes UDP para um número de porta alto imediatamente. Quando finalmente chegar ao último salto, ele enviará uma solicitação de massa de DNS PTR para cada salto no caminho que determinou. \cite{Darren}
 \subsection{Comandos Traceroute}
 
 
@@ -451,7 +467,7 @@ Este modelo de artigo é limitado em número de exemplos de comandos.
 % ---
 
 % ---
-% Conclusão
+% Conclusão\part{title}
 % ---
 \section{Considerações finais}
   Com a ferramente Traceroute podemos analisar pacotes até seu destino, podendo assim observar por onde nossos pacotes estão passando, facilitando assim a apuração de possíveis problemas relacionados as rotas, que os pacotes tomam pela Internet, sendo possivel a analise de ponta-a-ponta de maquinas finais.
