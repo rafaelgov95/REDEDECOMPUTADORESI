@@ -292,19 +292,40 @@ A cumutação de pacotes que a Internet utiliza visa percorrer os melhores camin
  Com o comando padrão do Traceroute (em caso de linux, caso do seu sistema for windows utilizar trace, o restante e igual), que é "traceroute Host", começamos a encaminhar sondas encrementendo progrecivamente o TLL (citado no topíco protocolos), assim começamos nossa sondagem pela rede ate a maquina final. 
  \begin{enumerate}
  	\item
+ 	Utilizando o traceroute mandamos três requisição para cada enlace até o endereço ju.edu.jo com 30 saltos no max, e pacotes de 60 byte em cada requisição que é de padrão quando não espeficiado no corpo do comando (para mais detalhes de comandos consultar a secção de Comandos do Traceroute) Figura \ref{rota-1}.
  		\begin{figure}[!h]
 	 		\centering
 	 		\includegraphics[scale=0.65]{./rota-1.png}
-	 		\label{Rotulo}
+	 		\caption{Inicio de comando traceroute com um hostname alvo}
+	 		\label{rota-1}
 	 	\end{figure}
  	
- 	\item	
+ 	\item
+ 	Na Figura \ref{rota-2} os três pacotes são enviados para o roteador de borda com endereço 192.168.1.1, e são respondidos em ordem pelo mesmo com tempo de 0,756 ms, 0,95 ms, 1,129 ms.
  	\begin{figure}[!h]
  		\centering
  		\includegraphics[scale=0.7]{./rota-2.png}
- 		\label{Rotulo}
+ 		\caption{Pacotes respondidos pelo roteador de borda}
+ 		\label{rota-2}
  	\end{figure}
  	
+ 	\item
+ 	Na Figura \ref{rota-3} os pacotes encaminhados da borda da rede, chegam para o provedor de internet, sendo respondidos pelo mesmo em ordem com o tempo de 27.885 ms, 29.145 ms, 32.545 ms.	
+ 	\begin{figure}[!h]
+ 		\centering
+ 		\includegraphics[scale=0.6]{./rota-3.png}
+ 		\caption{Pacote e respondido pelo provedor}
+ 		\label{rota-3}
+ 	\end{figure}
+ 
+ \item
+ Na Figura \ref{rota-4} o provedor com endereco reverso oi-lo10-cpce-ms-a1k-01.brasiltelecom.net.br visto na Figura \ref{rota-3}, encaminha o pacote para o endereco Brt-G0-0-0-2-cpce-ms-rotd-xr02.brasiltelecom.net.br também em Brasilia. 
+ \begin{figure}[!h]
+ 	\centering
+ 	\includegraphics[scale=0.6]{./rota-4.png}
+ 	\caption{Pacote encaminhado para roteador de borda}
+ 	\label{rota-4}
+ \end{figure}
  	
  \end{enumerate}
 

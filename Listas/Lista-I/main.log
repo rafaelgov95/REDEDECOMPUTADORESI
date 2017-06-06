@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.6.3)  5 JUN 2017 18:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.6.3)  5 JUN 2017 20:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1023,12 +1023,6 @@ Sidefootvsep and sidefootheight: 13.6pt and 594.32022pt
 
 LaTeX Warning: Label `Rotulo' multiply defined.
 
-
-LaTeX Warning: Label `Rotulo' multiply defined.
-
-
-LaTeX Warning: Label `Rotulo' multiply defined.
-
 )
 \openout1 = `main.aux'.
 
@@ -1157,36 +1151,65 @@ Package microtype Info: Loading generic settings for font family
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] <./rota-1.png, id=
-51, 602.25pt x 60.225pt>
+52, 602.25pt x 60.225pt>
 File: ./rota-1.png Graphic file (type png)
 
 <use ./rota-1.png>
-Package pdftex.def Info: ./rota-1.png used on input line 297.
+Package pdftex.def Info: ./rota-1.png used on input line 298.
 (pdftex.def)             Requested size: 391.45786pt x 39.14577pt.
- [4] <./rota-2.png, id=64, 501.875pt x 30.1125pt>
+ [4] <./rota-2.png, id=66, 501.875pt x 30.1125pt>
 File: ./rota-2.png Graphic file (type png)
 
 <use ./rota-2.png>
-Package pdftex.def Info: ./rota-2.png used on input line 304.
+Package pdftex.def Info: ./rota-2.png used on input line 307.
 (pdftex.def)             Requested size: 351.31009pt x 21.07858pt.
- <./trauceroute-1.png, id=65, 1304.875pt x 903.375pt>
+ <./rota-3.png, id=68, 803.0pt x 60.225pt>
+File: ./rota-3.png Graphic file (type png)
+
+<use ./rota-3.png>
+Package pdftex.def Info: ./rota-3.png used on input line 316.
+(pdftex.def)             Requested size: 481.80373pt x 36.13527pt.
+
+Overfull \hbox (55.80373pt too wide) in paragraph at lines 316--317
+ [][] 
+ []
+
+<./rota-4.png, id=71, 903.375pt x 60.225pt>
+File: ./rota-4.png Graphic file (type png)
+ <use ./rota-4.png>
+Package pdftex.def Info: ./rota-4.png used on input line 325.
+(pdftex.def)             Requested size: 542.02919pt x 36.13527pt.
+
+Overfull \hbox (116.02919pt too wide) in paragraph at lines 325--326
+ [][] 
+ []
+
+
+Overfull \hbox (10.7718pt too wide) in paragraph at lines 322--329
+[]\T1/lmr/m/n/10.95 (-20) Na Fi-gura [][]4[][] o pro-ve-dor com en-de-reco re-v
+erso oi-lo10-cpce-ms-a1k-01.brasiltelecom.net.br
+ []
+
+<./trauceroute-1.png, id=72, 1304.875pt x 903.375pt>
 File: ./trauceroute-1.png Graphic file (type png)
-
-<use ./trauceroute-1.png>
-Package pdftex.def Info: ./trauceroute-1.png used on input line 314.
+ <use ./trauceroute-1.png>
+Package pdftex.def Info: ./trauceroute-1.png used on input line 335.
 (pdftex.def)             Requested size: 391.46552pt x 271.01459pt.
- <./google-earh.png, id=66, 1927.2pt x 1084.05pt>
-File: ./google-earh.png Graphic file (type png)
-
-<use ./google-earh.png>
-Package pdftex.def Info: ./google-earh.png used on input line 325.
-(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[5 <./rota-1.png> <./rota-2.png> <./trauceroute-1.png>] (./main.bbl (./main.brf
-)
+<./google-earh.png, id=73, 1706.375pt x 903.375pt>
+File: ./google-earh.png Graphic file (type png)
+ <use ./google-earh.png>
+Package pdftex.def Info: ./google-earh.png used on input line 346.
+(pdftex.def)             Requested size: 341.26895pt x 180.6718pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <./rota-1.png> <./rota-2.png> <./rota-3.png> <./rota-4.png>] [6 <./traucerou
+te-1.png> <./google-earh.png>] (./main.bbl (./main.brf)
 \tf@brf=\write5
 \openout5 = `main.brf'.
 
@@ -1194,38 +1217,38 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 bibitemlist
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 15.
-) [6 <./google-earh.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 357.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 357.
+) [7]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 378.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 378.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 357.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 357.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 378.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 378.
 Package rerunfilecheck Info: File `main.brf' has not changed.
 (rerunfilecheck)             Checksum: DA1D9ABC0C27C3EB23A807545C1081CB;128.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 357.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 378.
  ) 
 Here is how much of TeX's memory you used:
- 13016 strings out of 493013
- 192419 string characters out of 6135683
- 448395 words of memory out of 5000000
- 16252 multiletter control sequences out of 15000+600000
- 49770 words of font info for 83 fonts, out of 8000000 for 9000
+ 13043 strings out of 493013
+ 192729 string characters out of 6135683
+ 449839 words of memory out of 5000000
+ 16268 multiletter control sequences out of 15000+600000
+ 49853 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,38p,749b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,38p,749b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
 public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf
 /fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss1
 2.pfb>
-Output written on main.pdf (6 pages, 2659532 bytes).
+Output written on main.pdf (7 pages, 2291569 bytes).
 PDF statistics:
- 178 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
- 19093 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 200 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
+ 50 named destinations out of 1000 (max. 500000)
+ 19103 words of extra memory for PDF output out of 20736 (max. 10000000)
 
