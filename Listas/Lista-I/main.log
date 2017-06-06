@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.6.3)  6 JUN 2017 00:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.6.3)  6 JUN 2017 01:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1027,11 +1027,7 @@ Sidefoothsep and sidefootwidth: 7pt and 49pt
 Sidefootvsep and sidefootheight: 13.6pt and 594.32022pt
 ******************************************************
 
-(./main.aux
-
-LaTeX Warning: Label `Rotulo' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
@@ -1158,14 +1154,14 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             See the microtype manual for details.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] <./rota-1.png, id=
-52, 602.25pt x 60.225pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] <./rota-1.png,
+ id=63, 602.25pt x 60.225pt>
 File: ./rota-1.png Graphic file (type png)
 
 <use ./rota-1.png>
 Package pdftex.def Info: ./rota-1.png used on input line 299.
 (pdftex.def)             Requested size: 391.45786pt x 39.14577pt.
- [4] <./rota-2.png, id=66, 501.875pt x 30.1125pt>
+ <./rota-2.png, id=66, 501.875pt x 30.1125pt>
 File: ./rota-2.png Graphic file (type png)
 
 <use ./rota-2.png>
@@ -1207,53 +1203,57 @@ Overfull \hbox (61.81525pt too wide) in paragraph at lines 337--338
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.341 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-0.2}) has been already used, duplicate ignored
+l.342 		F
+         igura \ref{rota-vazia}, o traceroute não consegui resolver as rota...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.2}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.341 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-0.3}) has been already used, duplicate ignored
+l.342 		F
+         igura \ref{rota-vazia}, o traceroute não consegui resolver as rota...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.3}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.341 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-0.4}) has been already used, duplicate ignored
+l.342 		F
+         igura \ref{rota-vazia}, o traceroute não consegui resolver as rota...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.4}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.341 
-       <./rota-1.png> <./rota-2.png> <./rota-3.png> <./rota-4.png>]
-<./rota-6.png, id=92, 1606.0pt x 60.225pt>
+l.342 		F
+         igura \ref{rota-vazia}, o traceroute não consegui resolver as rota...
+ <./rota-1.png> <./rota-2.png> <./rota-3.png> <./rota-4.png>]
+<./rota-vazia.png, id=92, 803.0pt x 60.225pt>
+File: ./rota-vazia.png Graphic file (type png)
+ <use ./rota-vazia.png>
+Package pdftex.def Info: ./rota-vazia.png used on input line 346.
+(pdftex.def)             Requested size: 483.7029pt x 36.9899pt.
+
+Overfull \hbox (57.7029pt too wide) in paragraph at lines 346--347
+ [][] 
+ []
+
+<./rota-6.png, id=94, 1606.0pt x 60.225pt>
 File: ./rota-6.png Graphic file (type png)
  <use ./rota-6.png>
-Package pdftex.def Info: ./rota-6.png used on input line 347.
+Package pdftex.def Info: ./rota-6.png used on input line 356.
 (pdftex.def)             Requested size: 483.69066pt x 36.9899pt.
 
-Overfull \hbox (57.69066pt too wide) in paragraph at lines 347--348
+Overfull \hbox (57.69066pt too wide) in paragraph at lines 356--357
  [][] 
  []
 
-<./rota-7.png, id=94, 903.375pt x 60.225pt>
+<./rota-7.png, id=96, 903.375pt x 60.225pt>
 File: ./rota-7.png Graphic file (type png)
  <use ./rota-7.png>
-Package pdftex.def Info: ./rota-7.png used on input line 356.
+Package pdftex.def Info: ./rota-7.png used on input line 365.
 (pdftex.def)             Requested size: 483.7075pt x 36.9899pt.
 
-Overfull \hbox (57.7075pt too wide) in paragraph at lines 356--357
- [][] 
- []
-
-<./rota-8.png, id=99, 1204.5pt x 60.225pt>
-File: ./rota-8.png Graphic file (type png)
- <use ./rota-8.png>
-Package pdftex.def Info: ./rota-8.png used on input line 365.
-(pdftex.def)             Requested size: 483.7029pt x 42.68008pt.
-
-Overfull \hbox (57.7029pt too wide) in paragraph at lines 365--366
+Overfull \hbox (57.7075pt too wide) in paragraph at lines 365--366
  [][] 
  []
 
@@ -1262,160 +1262,200 @@ Overfull \hbox (57.7029pt too wide) in paragraph at lines 365--366
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.369 	 	\item N
-                a Figura \ref{rota-9}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.0.6}) has been already used, duplicate ignored
+l.371 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.369 	 	\item N
-                a Figura \ref{rota-9}pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.0.7}) has been already used, duplicate ignored
+l.371 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.369 	 	\item N
-                a Figura \ref{rota-9} <./rota-5.png> <./rota-6.png> <./rota-7.p
-ng>] <./rota-9.png, id=116, 702.625pt x 60.225pt>
-File: ./rota-9.png Graphic file (type png)
- <use ./rota-9.png>
-Package pdftex.def Info: ./rota-9.png used on input line 373.
-(pdftex.def)             Requested size: 483.70749pt x 42.68008pt.
+l.371 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.8}) has been already used, duplicate ignored
 
-Overfull \hbox (57.70749pt too wide) in paragraph at lines 373--374
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.371 
+       <./rota-5.png> <./rota-vazia.png> <./rota-6.png> <./rota-7.png>]
+<./rota-8.png, id=117, 1204.5pt x 60.225pt>
+File: ./rota-8.png Graphic file (type png)
+ <use ./rota-8.png>
+Package pdftex.def Info: ./rota-8.png used on input line 374.
+(pdftex.def)             Requested size: 483.7029pt x 42.68008pt.
+
+Overfull \hbox (57.7029pt too wide) in paragraph at lines 374--375
  [][] 
  []
 
-<./rota-10.png, id=118, 702.625pt x 60.225pt>
-File: ./rota-10.png Graphic file (type png)
- <use ./rota-10.png>
-Package pdftex.def Info: ./rota-10.png used on input line 382.
+
+Overfull \hbox (16.67052pt too wide) in paragraph at lines 378--379
+[]\T1/lmr/m/n/10.95 (-20) Na Fi-gura [][]10[][], os pa-co-tes fo-ram en-ca-mi-n
+ha-dos para o en-de-re�o ae4-650.cr2-nyc6.ip4.gtt.net
+ []
+
+<./rota-9.png, id=119, 702.625pt x 60.225pt>
+File: ./rota-9.png Graphic file (type png)
+ <use ./rota-9.png>
+Package pdftex.def Info: ./rota-9.png used on input line 382.
 (pdftex.def)             Requested size: 483.70749pt x 42.68008pt.
 
 Overfull \hbox (57.70749pt too wide) in paragraph at lines 382--383
  [][] 
  []
 
-<./rota-11.png, id=120, 602.25pt x 60.225pt>
+<./rota-10.png, id=121, 702.625pt x 60.225pt>
+File: ./rota-10.png Graphic file (type png)
+ <use ./rota-10.png>
+Package pdftex.def Info: ./rota-10.png used on input line 391.
+(pdftex.def)             Requested size: 483.70749pt x 42.68008pt.
+
+Overfull \hbox (57.70749pt too wide) in paragraph at lines 391--392
+ [][] 
+ []
+
+<./rota-11.png, id=123, 602.25pt x 60.225pt>
 File: ./rota-11.png Graphic file (type png)
  <use ./rota-11.png>
-Package pdftex.def Info: ./rota-11.png used on input line 391.
+Package pdftex.def Info: ./rota-11.png used on input line 401.
 (pdftex.def)             Requested size: 483.71208pt x 42.68008pt.
 
-Overfull \hbox (57.71208pt too wide) in paragraph at lines 391--392
+Overfull \hbox (57.71208pt too wide) in paragraph at lines 401--402
  [][] 
  []
 
-<./rota-12.png, id=122, 602.25pt x 60.225pt>
-File: ./rota-12.png Graphic file (type png)
- <use ./rota-12.png>
-Package pdftex.def Info: ./rota-12.png used on input line 400.
-(pdftex.def)             Requested size: 483.71208pt x 42.68008pt.
-
-Overfull \hbox (57.71208pt too wide) in paragraph at lines 400--401
- [][] 
- []
-
-<./rota-13.png, id=124, 602.25pt x 60.225pt>
-File: ./rota-13.png Graphic file (type png)
- <use ./rota-13.png>
-Package pdftex.def Info: ./rota-13.png used on input line 409.
-(pdftex.def)             Requested size: 483.71208pt x 42.68008pt.
-
-Overfull \hbox (57.71208pt too wide) in paragraph at lines 409--410
- [][] 
- []
-
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.0.8}
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.0.9}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.412 	 	\end{figure}
-                     pdfTeX warning (ext4): destination with the same identifie
-r (name{figure.0.9}) has been already used, duplicate ignored
+l.405 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.412 	 	\end{figure}
-                     pdfTeX warning (ext4): destination with the same identifie
-r (name{figure.0.10}) has been already used, duplicate ignored
+l.405 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.11}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.412 	 	\end{figure}
-                     pdfTeX warning (ext4): destination with the same identifie
-r (name{figure.0.11}) has been already used, duplicate ignored
+l.405 
+       <./rota-8.png> <./rota-9.png> <./rota-10.png>]
+<./rota-12.png, id=141, 602.25pt x 60.225pt>
+File: ./rota-12.png Graphic file (type png)
+ <use ./rota-12.png>
+Package pdftex.def Info: ./rota-12.png used on input line 410.
+(pdftex.def)             Requested size: 483.71208pt x 42.68008pt.
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.412 	 	\end{figure}
-                     pdfTeX warning (ext4): destination with the same identifie
-r (name{figure.0.12}) has been already used, duplicate ignored
+Overfull \hbox (57.71208pt too wide) in paragraph at lines 410--411
+ [][] 
+ []
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.412 	 	\end{figure}
-                      <./rota-8.png> <./rota-9.png> <./rota-10.png> <./rota-11.
-png> <./rota-12.png>] <./trauceroute-1.png, id=143, 1304.875pt x 903.375pt>
+<./rota-13.png, id=143, 602.25pt x 60.225pt>
+File: ./rota-13.png Graphic file (type png)
+ <use ./rota-13.png>
+Package pdftex.def Info: ./rota-13.png used on input line 419.
+(pdftex.def)             Requested size: 483.71208pt x 42.68008pt.
+
+Overfull \hbox (57.71208pt too wide) in paragraph at lines 419--420
+ [][] 
+ []
+
+<./trauceroute-1.png, id=146, 1575.8875pt x 501.875pt>
 File: ./trauceroute-1.png Graphic file (type png)
 
 <use ./trauceroute-1.png>
-Package pdftex.def Info: ./trauceroute-1.png used on input line 418.
-(pdftex.def)             Requested size: 130.49513pt x 90.34279pt.
- <./google-earh.png, id=144, 1706.375pt x 903.375pt>
-File: ./google-earh.png Graphic file (type png)
+Package pdftex.def Info: ./trauceroute-1.png used on input line 428.
+(pdftex.def)             Requested size: 426.76976pt x 142.26239pt.
 
-<use ./google-earh.png>
-Package pdftex.def Info: ./google-earh.png used on input line 429.
-(pdftex.def)             Requested size: 341.26895pt x 180.6718pt.
- [8pdfTeX warning (ext4): destination with the same identifier (name{figure.0.1
-3}) has been already used, duplicate ignored
+Overfull \hbox (0.76976pt too wide) in paragraph at lines 428--429
+ [][] 
+ []
+
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.0.12
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.452 \lipsum
-             [2] <./rota-13.png> <./trauceroute-1.png> <./google-earh.png>]
+l.432 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.13}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.432 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+0.14}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.432 
+       <./rota-11.png> <./rota-12.png> <./rota-13.png>]
+<./google-earh.png, id=161, 1706.375pt x 903.375pt>
+File: ./google-earh.png Graphic file (type png)
+ <use ./google-earh.png>
+Package pdftex.def Info: ./google-earh.png used on input line 438.
+(pdftex.def)             Requested size: 341.26895pt x 180.6718pt.
+
 (./main.bbl (./main.brf)
 \tf@brf=\write5
 \openout5 = `main.brf'.
 
 
 bibitemlist
+[9pdfTeX warning (ext4): destination with the same identifier (name{figure.0.15
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.21 
+     pdfTeX warning (ext4): destination with the same identifier (name{figure.0
+.16}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.21 
+      <./trauceroute-1.png> <./google-earh.png>]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 21.
-) [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 461.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 461.
+) [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 462.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 462.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 461.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 461.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 462.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 462.
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: C75F2F164BDA82527051D467A9650EA9;178.
+(rerunfilecheck)             Checksum: A6CF748419F0777B22EAB9857E891118;178.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 461.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 462.
  ) 
 Here is how much of TeX's memory you used:
- 13199 strings out of 493013
- 194902 string characters out of 6135683
- 453841 words of memory out of 5000000
- 16379 multiletter control sequences out of 15000+600000
- 54625 words of font info for 90 fonts, out of 8000000 for 9000
+ 13201 strings out of 493013
+ 194967 string characters out of 6135683
+ 453066 words of memory out of 5000000
+ 16381 multiletter control sequences out of 15000+600000
+ 51432 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,38p,1077b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,38p,1077b,568s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
 public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/
-lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss1
-0.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb>
-Output written on main.pdf (9 pages, 2550822 bytes).
+lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lms
+s12.pfb>
+Output written on main.pdf (10 pages, 2329467 bytes).
 PDF statistics:
- 266 PDF objects out of 1000 (max. 8388607)
- 214 compressed objects within 3 object streams
- 71 named destinations out of 1000 (max. 500000)
- 21196 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 271 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
+ 75 named destinations out of 1000 (max. 500000)
+ 19137 words of extra memory for PDF output out of 20736 (max. 10000000)
 

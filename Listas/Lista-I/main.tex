@@ -285,12 +285,12 @@ O único parâmetro obrigatório para o comando traceroute é o nome ou o númer
 \end{enumerate}                    
 
 
-\section{Exemplo de reconhecimento de cumutação de rede utilizando Traceroute}
+\section{Exemplo de análise de cumutação de rede utilizando Traceroute}
 A cumutação de pacotes que a Internet utiliza visa percorrer os melhores caminhos possíveis, sendo assim lentidão na rede ocasionada por diversos problemas, se possivel consultar Kurrose 2010 para melhores exemplos, de problemas originadores de lentidão na rede, o exemplo dado nesse artigo tem como objetivo demostrativo com intuito de analizar mensagens ICMP relatadas pelo Traceroute, e mapear essas mensagens utilizando os ips disponíveis nas respostas do ICMP, juntamente com auxilio da pagína www.localizaip.com.br, que nos fornece posições geograficas, referente a endereços de ips, com essas informações geograficas (latitude e longitude) foi mapeado a rota utilizada, com auxilio do aplicativo Google Earth . 
 
-\subsubsection{Reconhecimento}
+\subsubsection{Análise}
  Será utilizado um site do oriente médio para exemplificação com o nome de endereço ju.edu.jo, esse endereço é de uma pagina web hospedada na Jordânia.
- Com o comando padrão do Traceroute (em caso de linux, caso do seu sistema for windows utilizar trace, o restante e igual), que é "traceroute Host", começamos a encaminhar sondas encrementendo progrecivamente o TLL (citado no topíco protocolos), assim começamos nossa sondagem pela rede ate a maquina final. 
+ Com o comando padrão do traceroute (utilizando Linux e Mac, se for  windows utilizar o comando trace), que é "traceroute Host"(substituindo o Host pelo endereço do alvo), começamos a encaminhar sondas encrementendo progrecivamente o TLL (citado no topíco protocolos, em alguns casos não falaremos diretamente sobre o TLL, porém indiretamente considere que em cada pacote reenviado o valor do campo TLL e encrementeado), assim começamos nossa sondagem pela rede até a máquina final. 
  \begin{enumerate}
  	\item
  	Utilizando o traceroute mandamos três requisição para cada enlace até o endereço ju.edu.jo com 30 saltos no max, e pacotes de 60 byte em cada requisição que é de padrão quando não espeficiado no corpo do comando (para mais detalhes de comandos consultar a secção de Comandos do Traceroute) Figura \ref{rota-1}.
@@ -338,7 +338,16 @@ A cumutação de pacotes que a Internet utiliza visa percorrer os melhores camin
 		\caption{Pacotes sendo comutados pelos roteadores do provedor nacional}
 		\label{rota-5}
 	\end{figure}
-
+		\item 
+		Figura \ref{rota-vazia}, o traceroute não consegui resolver as rotas nos três pacotes enviados, perdendo os, sendo assim na próxima sondagem ele tentara uma outra rota.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=17cm,height=1.3cm]{./rota-vazia.png}
+			\caption{Pacotes perdidos}
+			\label{rota-vazia}
+		\end{figure}
+	
 		\item 
 		Figura \ref{rota-6}, nessa parte dois pacotes são encaminahdos para o roteador de endereço te-0-0-0-0-ETCE-DF-ROTB-01.brasiltelecom.net.br, esse roteador e nacional se encontra em Brasilia, o mesmo visualiza o TTL zerado, dos pacotes retorne mensagens ICMP para o roteador inicial da requisição com tempo de 68.123 ms e 73.770 ms, e um pacote é encaminhado direto para o roteador do servidor Carrier-Grade NAT RFC6598 de endereço 100.120.64.14, Internacional situado no Oceano Atlântico, que por sua vez, visualiza o TLL zerado retornando uma mensagem ICMP para o roteador inical, o RTT desse roteador é de 72.279 ms.
 	
@@ -349,7 +358,7 @@ A cumutação de pacotes que a Internet utiliza visa percorrer os melhores camin
 		\label{rota-6}
 	\end{figure}
 
-		\item Na Figura \ref{rota-7}, os pacotes são comutados até o um provedor Carrier-Grade NAT RFC6598, localizado no Oceano Atlântico, com endereço de ip 100.122.17.130 o pacote encaminhado para esse endereço teve um tempo de RTT de 200.617 ms, ja o pacote encaminhado para o mesmo servidor porém com o ip  100.122.17.148 teve um tempo de RTT de 179.446 ms.  
+		\item Na Figura \ref{rota-7}, os pacotes são comutados até o um provedor Carrier-Grade NAT RFC6598, localizado no Oceano Atlântico, com endereço de ip 100.122.17.130 o pacote encaminhado para esse endereço tive um tempo de RTT de 200.617 ms, já o outro pacote foi encaminhado para o mesmo servidor porém com o ip  100.122.17.148 teve um tempo de RTT de 179.446 ms.  
 	
 	\begin{figure}[H]
 		\centering
@@ -363,72 +372,72 @@ A cumutação de pacotes que a Internet utiliza visa percorrer os melhores camin
 	 	\begin{figure}[H]
 	 		\centering
 	 		\includegraphics[width=17cm,height=1.5cm]{./rota-8.png}
-	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico.}
 	 		\label{rota-8}
 	 	\end{figure}
-	 	\item Na Figura \ref{rota-9}
+	 	\item Na Figura \ref{rota-9}, os pacotes foram encaminhados para o endereço ae4-650.cr2-nyc6.ip4.gtt.net do provedor Internacional Tinet GmbH na cidade de New York nos United States, com RTT de 197.991 ms, 202.254 ms e 202.207 ms, sucessivamente.
 	 	
 	 	\begin{figure}[H]
 	 		\centering
 	 		\includegraphics[width=17cm,height=1.5cm]{./rota-9.png}
-	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\caption{Pacotes sendo cumutados até provedor Internacional Tinet GmbH na cidade de New York nos United States.}
 	 		\label{rota-9}
 	 	\end{figure}
  	
- 	 	\item Na Figura \ref{rota-10}
+ 	 	\item Na Figura \ref{rota-10}, os pacotes foram encaminhados para o endereço ip 141.136.105.222, do provedor GTT Communications Inc, localizado na cidade de Frankfurt Am Main, na Germany, com RTT de 294.974 ms, 295.028 ms e 297.926 ms, sucessivamente.
 	 	
 	 	\begin{figure}[H]
 	 		\centering
 	 		\includegraphics[width=17cm,height=1.5cm]{./rota-10.png}
-	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\caption{Pacotes sendo cumutados até provedor Internacional, GTT Communications Inc, na cidade de Frankfurt Am Main, na Germany.}
+	
 	 		\label{rota-10}
 	 	\end{figure}
  	
-	 	 \item Na Figura \ref{rota-11}
+	 	 \item Na Figura \ref{rota-11}, os pacotes foram encaminhados para o endereço ip 46.33.83.18, do provedor GTT Communications Inc , localizado na cidade de Isenburg, na Germany, com RTT de 334.051 ms, 336.230 ms e 339.446 ms, sucessivamente.
 	 	
 	 	\begin{figure}[H]
 	 		\centering
 	 		\includegraphics[width=17cm,height=1.5cm]{./rota-11.png}
-	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\caption{Pacotes sendo cumutados até provedor Internacional, GTT Communications Inc, na cidade de Isenburg, na Germany.}
 	 		\label{rota-11}
 	 	\end{figure}
  	
-	 	 \item Na Figura \ref{rota-12}
+	 	 \item Na Figura \ref{rota-12}, os pacotes foram encaminhados para o endereço ip 213.139.41.2, do provedor Jordan Telecommunications Company, localizado na cidade de Amman, na Jordan, com RTT de 299.414 ms, 300.090 ms e 299.396 ms, sucessivamente.
 	 	
 	 	\begin{figure}[H]
 	 		\centering
 	 		\includegraphics[width=17cm,height=1.5cm]{./rota-12.png}
-	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\caption{Pacotes sendo cumutados até provedor Internacional, Jordan Telecommunications Company, na cidade de Amman, na Jordan.}
 	 		\label{rota-12}
 	 	\end{figure}
  	
-	 	 \item Na Figura \ref{rota-13}
+	 	 \item Na Figura \ref{rota-13}, os pacotes foram encaminhados para o endereço ip 213.139.32.206, do provedor Jordan Telecommunications Company, também localizado na cidade de Amman, na Jordan, com RTT de 310.995 ms, 311.614 ms e 311.892 ms, sucessivamente.
 	 	
 	 	\begin{figure}[H]
 	 		\centering
 	 		\includegraphics[width=17cm,height=1.5cm]{./rota-13.png}
-	 		\caption{Pacotes sendo comutados pelo servidor Internacional compartilhado Carrier-Grade NAT RFC6598, situado no Oceano Atlântico}
+	 		\caption{Pacotes sendo cumutados até provedor Internacional, Jordan Telecommunications Company, na cidade de Amman, na Jordan.}
 	 		\label{rota-13}
 	 	\end{figure}
  \end{enumerate}
 
-	 
+	O ultimo salto realizados nos roteadores até a maquina final mostrado na Figura \ref{rota-13}, mostra o funcionamento do traceroute, os outros 17 saltos restantes são descartados pelo traceroute, ja que não existe mais roteadores disponiveis para realizar a sondagem como podemos observar na Figura \ref{traceroute} .
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.1]{./trauceroute-1.png}
-
-	\label{Rotulo}
+	\includegraphics[width=15cm,height=5cm]{./trauceroute-1.png}
+	\caption{Resultado final da sondagem utilizando o Traceroute.}
+	\label{traceroute}
 \end{figure}
+	 
 
-\subsubsection{Levantamento de rotas}
-
-\subsubsection{Mapeamento Utilizando Google Eart }
-
+\subsubsection{Mapeamento utilizando Google Earth }
+	Com base nos endereços IPs fornecido pelo Traceroute, foi descoberto as coordenadas geográficas dos IPs, pelo o site www.localizaip.com.br, com essas coordenadas foi mapeado a apenas as rota Internacionais que os pacotes traferam, utilizando o Google Earth para fazer as marcações no Mapa Figura \ref{google-earth}.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.2]{./google-earh.png}
-	
-	\label{Rotulo}
+	\caption{Mapeamento das rotas Internacioais, até a Jordania apartir dos endereços de IPs fornecido pelo Traceroute.}
+	\label{google-earth}
 \end{figure}
 
 
@@ -444,15 +453,7 @@ Este modelo de artigo é limitado em número de exemplos de comandos.
 % Conclusão
 % ---
 \section{Considerações finais}
-\addcontentsline{toc}{section}{Considerações finais}
 
-\lipsum[1]
-
-\begin{citacao}
-\lipsum[2]
-\end{citacao}
-
-\lipsum[3]
 \bibliographystyle{abntex2-alf}
 \bibliography{abntex2-modelo-references}
 
