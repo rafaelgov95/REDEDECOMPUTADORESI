@@ -188,10 +188,10 @@ Nesse artigo estaremos abortando o Trouceroute porém, será levantado protoloco
 
 \section{Protocolos}
 
-\subsection{IPv4}
+\subsection{IPv4 - 'Campo TTL'}
 O IP é o elemento comum encontrado na Internet pública dos dias de hoje. É descrito no RFC 791 da IETF, que foi pela primeira vez publicado em Setembro de 1981. Este documento descreve o protocolo da camada de rede mais popular e atualmente em uso. Esta versão do protocolo é designada de versão 4, ou IPv4. O IPv6 tem endereçamento de origem e destino de 128 bits, oferecendo mais endereçamentos que os 32 bits do IPv4.
 
-Ente os 12 campos do IPv4 descrito no RFC 791 falaremos do TTL é campo de oito bits, o TTL (time to live, ou seja, tempo para viver) ajuda a prevenir que os datagramas persistam (ex. andando aos círculos) numa rede. Historicamente, o campo TTL limita a vida de um datagrama em segundos, mas tornou-se num campo de contagem de nós caminhados. Cada comutador de pacotes que um datagrama atravessa decrementa o campo TTL em um valor. Quando o campo TTL chega a zero, o pacote não é seguido por um comutador de pacotes e é descartado.
+Entre os 12 campos do IPv4 descrito no RFC 791 falaremos do TTL é campo de oito bits, o TTL (time to live, ou seja, tempo para viver) ajuda a prevenir que os datagramas persistam (ex. andando aos círculos) numa rede. Historicamente, o campo TTL limita a vida de um datagrama em segundos, mas tornou-se num campo de contagem de nós caminhados. Cada comutador de pacotes que um datagrama atravessa decrementa o campo TTL em um valor. Quando o campo TTL chega a zero, o pacote não é seguido por um comutador de pacotes e é descartado.
 O propósito do TTL é evitar que datagramas entrem em um loop de roteamento, o que pode ocorrer devido a algum tipo de falha durante o roteamento dos pacotes. Quando um roteador recebe um datagrama cujo TTL é igual a 0 (zero), ele não o encaminhará mais. Em vez disso, o roteador irá descartar o pacote e enviar de volta ao host que o originou uma mensagem ICMP do tipo Tempo Excedido. Essa mensagem contém o endereço IP do roteador como endereço de origem - e esse é o segredo do traceroute.\cite{boson}
 
 
@@ -286,7 +286,8 @@ O único parâmetro obrigatório para o comando traceroute é o nome ou o númer
 
 
 \section{Exemplo de análise de cumutação de rede utilizando Traceroute}
-A cumutação de pacotes que a Internet utiliza visa percorrer os melhores caminhos possíveis, sendo assim lentidão na rede ocasionada por diversos problemas, se possivel consultar Kurrose 2010 para melhores exemplos, de problemas originadores de lentidão na rede, o exemplo dado nesse artigo tem como objetivo demostrativo com intuito de analizar mensagens ICMP relatadas pelo Traceroute, e mapear essas mensagens utilizando os ips disponíveis nas respostas do ICMP, juntamente com auxilio da pagína www.localizaip.com.br, que nos fornece posições geograficas, referente a endereços de ips, com essas informações geograficas (latitude e longitude) foi mapeado a rota utilizada, com auxilio do aplicativo Google Earth . 
+A cumutação de pacotes que a Internet utiliza visa percorrer os melhores caminhos possíveis, sendo assim lentid\~oes na rede ocasionada por diversos problemas, podem influenciar significativamente na rota dos pacotes, se possivel consultar Kurrose 2010 para melhores exemplos, de problemas originadores de lentid\~oes na rede. 
+O exemplo dado nesse artigo tem como objetivo demostrativo com intuito de analizar mensagens ICMP relatadas pelo Traceroute, e mapear essas mensagens utilizando os IPs disponíveis nas respostas das mensagens ICMPs, juntamente com auxílio da pagína www.localizaip.com.br, que nos fornece coordenas geográficas, referente a endereços de IPs, com essas coordenas (latitude e longitude) foi mapeado a rota utilizada, com auxilio do aplicativo Google Earth . 
 
 \subsubsection{Análise}
  Será utilizado um site do oriente médio para exemplificação com o nome de endereço ju.edu.jo, esse endereço é de uma pagina web hospedada na Jordânia.
@@ -433,9 +434,9 @@ A cumutação de pacotes que a Internet utiliza visa percorrer os melhores camin
 
 \subsubsection{Mapeamento utilizando Google Earth }
 	Com base nos endereços IPs fornecido pelo Traceroute, foi descoberto as coordenadas geográficas dos IPs, pelo o site www.localizaip.com.br, com essas coordenadas foi mapeado a apenas as rota Internacionais que os pacotes traferam, utilizando o Google Earth para fazer as marcações no Mapa Figura \ref{google-earth}.
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.2]{./google-earh.png}
+	\includegraphics[width=15cm,height=11cm]{./google-earh.png}
 	\caption{Mapeamento das rotas Internacioais, até a Jordania apartir dos endereços de IPs fornecido pelo Traceroute.}
 	\label{google-earth}
 \end{figure}
