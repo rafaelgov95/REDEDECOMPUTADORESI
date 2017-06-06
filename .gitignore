@@ -13,7 +13,7 @@
 *.fot
 *.cb
 *.cb2
-*.tex
+#*.tex
 ## Intermediate documents:
 *.dvi
 *-converted-to.*
