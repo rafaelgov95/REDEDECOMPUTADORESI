@@ -225,3 +225,11 @@ TSWLatexianTemp*
 # End of https://www.gitignore.io/api/latex
 /FTPCliente/FTP-RV/nbproject/private/
 /FTPCliente/FTP-RV/build/
+/Temps/FTPCliente-JFX (cópia)/build/
+/Temps/FTPCliente-JFX (cópia)/dist/
+/Temps/FTPCliente-JFX (cópia)/nbproject/private/
+/Temps/FTPCliente/FTP-RV/build/
+/Temps/FTPCliente/FTP-RV/nbproject/private/
+/TrabalhoEC1/FTPCliente-JFX/build/
+/TrabalhoEC1/FTPCliente-JFX/dist/
+/TrabalhoEC1/FTPCliente-JFX/nbproject/private/
