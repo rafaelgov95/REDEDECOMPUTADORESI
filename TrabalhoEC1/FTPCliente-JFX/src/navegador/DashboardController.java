@@ -1,4 +1,4 @@
-package studentfx;
+package navegador;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
