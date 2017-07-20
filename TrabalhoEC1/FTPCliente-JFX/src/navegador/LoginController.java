@@ -32,6 +32,7 @@ import javafx.util.Duration;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPClientConfig;
+import socket.FTPFactory;
 
 /**
  *
@@ -69,37 +70,27 @@ public class LoginController implements Initializable {
     private void login(ActionEvent event) {
         btnLogin.setVisible(false);
         imgProgress.setVisible(true);
-        
+
         PauseTransition pauseTransition = new PauseTransition();
         pauseTransition.setDuration(Duration.seconds(3));
         pauseTransition.setOnFinished(ev -> {
             try {
 
-                FTPClient ftp = new FTPClient();
-                FTPClientConfig config = new FTPClientConfig();
-                ftp.configure(config);
-                boolean erro = false;
-                int reply;
-                String server = txtHostName.getText();
-                ftp.connect(server);
-                System.out.println("Conectado a" + server + ".");
-                System.out.print(ftp.getReplyString());
-                reply = ftp.getReplyCode();
-                ftp.login(this.txtUsername.getText(), this.txtPassword.getText());
-                reply = ftp.getReplyCode();
-                System.out.println(reply);
+                int reply = FTPFactory.getInstance().FTPConecta(txtHostName.getText(), this.txtUsername.getText(), 
+                                                                this.txtPassword.getText());
+                System.out.println("Igual:" + reply);
                 if (reply == 230) {
-                    System.out.println("logo");
                     btnLogin.getScene().getWindow().hide();
                     completeLogin();
                 } else {
-                    System.out.println("nao logo");
                     imgProgress.setVisible(false);
                     btnLogin.setVisible(true);
 
                 }
 //               
             } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
 

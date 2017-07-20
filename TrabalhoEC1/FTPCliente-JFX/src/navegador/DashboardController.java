@@ -30,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
+import socket.FTPFactory;
 
 /**
  * FXML Controller class
@@ -123,6 +124,8 @@ public class DashboardController implements Initializable {
     }
 
     private void Navegacao() {
+        
+        
         TreeItem<File> root = createNode(new File("/home/rafael"));
         TreeView treeView = new TreeView<File>(root);
         holderPane.getChildren().add(treeView);
