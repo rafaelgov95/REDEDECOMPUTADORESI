@@ -133,15 +133,11 @@ public class DashboardController implements Initializable {
     }
 
     private void Navegacao() throws IOException {
+
         FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles("/");
         TreeItem<FTPFile> root = createNode(files[0]);
-        TreeView treeView = new TreeView<FTPFile>(root);
-        FTPFile[] filess = FTPFactory.getInstance().getFTP().listFiles("/");
-        for(FTPFile f : filess){
-            System.out.println(f.getName());}
-
         Tree.setRoot(root);
-//        holderPane.getChildren().add(treeView);
+
 
 
     }
