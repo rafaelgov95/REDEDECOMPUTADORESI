@@ -11,7 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +22,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -34,6 +40,9 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPListParseEngine;
 import socket.FTPFactory;
+import sun.reflect.generics.tree.Tree;
+
+import javax.swing.*;
 
 /**
  * FXML Controller class
@@ -83,8 +92,14 @@ public class DashboardController implements Initializable {
     @FXML
     private JFXButton btnClose;
     @FXML
-    private TreeView<FTPFile> Tree;
+    private TreeView<String> Tree;
     FTPFile[] listaNegra;
+    TreeItem treeItem;
+    FTPFile[] files;
+    FTPFile select = new FTPFile();
+public static Image folderCollapseImage = new Image(ClassLoader.getSystemResourceAsStream("utilfull/folder.png"));
+
+    public static Image file = new Image(ClassLoader.getSystemResourceAsStream("utilfull/text-x-generic.png"));
     /**
      * Initializes the controller class.
      *
@@ -118,11 +133,10 @@ public class DashboardController implements Initializable {
 
     }
 
-    //Set selected node to a content holder
     private void setNode(Node node) {
         holderPane.getChildren().clear();
         holderPane.getChildren().add((Node) node);
-        
+
         FadeTransition ft = new FadeTransition(Duration.millis(1500));
         ft.setNode(node);
         ft.setFromValue(0.1);
@@ -131,73 +145,36 @@ public class DashboardController implements Initializable {
         ft.setAutoReverse(false);
         ft.play();
     }
-
     private void Navegacao() throws IOException {
-
-        FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles("/");
-        TreeItem<FTPFile> root = createNode(files[0]);
-        Tree.setRoot(root);
-
-
+        files = FTPFactory.getInstance().getFTP().listFiles();
+        files[0].setName(FTPFactory.getInstance().getFTP().getPassiveHost());
+        Tree.setRoot( getNodesForDirectory(files[0]));
 
     }
 
+    public TreeItem<String> getNodesForDirectory(FTPFile directory) throws IOException { //Returns a TreeItem representation of the specified directory
 
-    private TreeItem<FTPFile> createNode(final FTPFile f) {
-        return new TreeItem<FTPFile>(f) {
-            private boolean isLeaf;
-            private boolean isFirstTimeChildren = true;
-            private boolean isFirstTimeLeaf = true;
+        TreeItem<String> root = new TreeItem<String>(directory.getName(),new ImageView(folderCollapseImage));
+        FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles();
+        for (FTPFile f : files) {
+            System.out.println("Loading " + f.getName());
+            if (f.isDirectory()) { //Then we call the function recursively
+                FTPFactory.getInstance().getFTP().changeWorkingDirectory(f.getName());
+                root.getChildren().add(getNodesForDirectory(f));
 
-            @Override
-            public ObservableList<TreeItem<FTPFile>> getChildren() {
-                if (isFirstTimeChildren) {
-                    isFirstTimeChildren = false;
-                    super.getChildren().setAll(buildChildren(this));
-                }
-                return super.getChildren();
+            } else {
+                root.getChildren().add(new TreeItem<String>(f.getName(),new ImageView(file)));
             }
+        }
+        FTPFactory.getInstance().getFTP().changeToParentDirectory();
+        return root;
+    }
 
-            @Override
-            public boolean isLeaf() {
-                if (isFirstTimeLeaf) {
-                    isFirstTimeLeaf = false;
-                    FTPFile f = (FTPFile) getValue();
-                    isLeaf = f.isFile();
-                }
-                return isLeaf;
-            }
 
-            private ObservableList<TreeItem<FTPFile>> buildChildren(
-                    TreeItem<FTPFile> TreeItem) {
-                    FTPFile f = TreeItem.getValue();
-                if (f == null) {
-                    return FXCollections.emptyObservableList();
-                }
-                if (f.isFile()) {
-                    return FXCollections.emptyObservableList();
-                }
-                FTPFile[] files;
-                try {
-                     files = FTPFactory.getInstance().getFTP().listFiles(".");
-                }catch (IOException e)
-
-                {
-                    files = new FTPFile[2];
-                    System.out.println( e);
-
-                }
-                if (files != null) {
-                    ObservableList<TreeItem<FTPFile>> children = FXCollections
-                            .observableArrayList();
-                    for (FTPFile childFile : files) {
-                        children.add(createNode(childFile));
-                    }
-                    return children;
-                }
-                return FXCollections.emptyObservableList();
-            }
-        };
+    public void mouseClick(MouseEvent mouseEvent)
+    {
+     TreeItem<String> item = Tree.getSelectionModel().getSelectedItem();
+        System.out.println(item.);
     }
 
     @FXML
@@ -209,52 +186,5 @@ public class DashboardController implements Initializable {
     private void exit(ActionEvent event) {
         Platform.exit();
     }
-
-    private TreeItem<File> createNode(final File f) {
-        return new TreeItem<File>(f) {
-            private boolean isLeaf;
-            private boolean isFirstTimeChildren = true;
-            private boolean isFirstTimeLeaf = true;
-
-            @Override
-            public ObservableList<TreeItem<File>> getChildren() {
-                if (isFirstTimeChildren) {
-                    isFirstTimeChildren = false;
-                    super.getChildren().setAll(buildChildren(this));
-                }
-                return super.getChildren();
-            }
-
-            @Override
-            public boolean isLeaf() {
-                if (isFirstTimeLeaf) {
-                    isFirstTimeLeaf = false;
-                    File f = (File) getValue();
-                    isLeaf = f.isFile();
-                }
-                return isLeaf;
-            }
-
-            private ObservableList<TreeItem<File>> buildChildren(
-                    TreeItem<File> TreeItem) {
-                File f = TreeItem.getValue();
-                if (f == null) {
-                    return FXCollections.emptyObservableList();
-                }
-                if (f.isFile()) {
-                    return FXCollections.emptyObservableList();
-                }
-                File[] files = f.listFiles();
-                if (files != null) {
-                    ObservableList<TreeItem<File>> children = FXCollections
-                            .observableArrayList();
-                    for (File childFile : files) {
-                        children.add(createNode(childFile));
-                    }
-                    return children;
-                }
-                return FXCollections.emptyObservableList();
-            }
-        };
-    }
 }
+
