@@ -1,54 +1,65 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.ufms.ftp.app;
-
-import java.io.IOException;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPClientConfig;
-import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPListParseEngine;
-import org.apache.commons.net.ftp.FTPReply;
-
-/**
- *
- * @author rafael
- */
-public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws IOException {
-        FTPClient ftp = new FTPClient();
-        FTPClientConfig config = new FTPClientConfig();
-        ftp.configure(config);
-        boolean erro = false;
-        int reply;
-
-        String server = "localhost";
-        ftp.connect(server);
-        System.out.println("Conectado a" + server + ".");
-        System.out.print(ftp.getReplyString());
-        reply = ftp.getReplyCode();
-        ftp.login("rafael", "Iloveprog");
-        reply = ftp.getReplyCode();
-        FTPListParseEngine engine = ftp.initiateListParsing(".");
-
-        while (engine.hasNext()) {
-            FTPFile[] files = engine.getNext(25);
-            for (FTPFile fTPFile : files) {
-                System.out.println(fTPFile.getName());
-            }
-            System.out.println(files.length);
-        }
-        if (!FTPReply.isPositiveCompletion(reply)) {
-            ftp.disconnect();
-            System.err.println("FTP server refused connection.");
-            System.exit(1);
-        }
-    }
-
+package org.eclipse.fx.ui.controls.sample;
+ 
+import java.nio.file.Paths;
+ 
+import javafx.application.Application;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
+import javafx.stage.Stage;
+ 
+import org.eclipse.fx.ui.controls.filesystem.DirectoryTreeView;
+import org.eclipse.fx.ui.controls.filesystem.DirectoryView;
+import org.eclipse.fx.ui.controls.filesystem.IconSize;
+import org.eclipse.fx.ui.controls.filesystem.ResourceItem;
+import org.eclipse.fx.ui.controls.filesystem.ResourcePreview;
+import org.eclipse.fx.ui.controls.filesystem.RootDirItem;
+ 
+public class DirectoryViewSample extends Application {
+ 
+  private static RootDirItem rootDirItem;
+ 
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    rootDirItem = ResourceItem.createObservedPath(
+      Paths.get("/"));
+ 
+    DirectoryTreeView tv = new DirectoryTreeView();
+    tv.setIconSize(IconSize.MEDIUM);
+    tv.setRootDirectories(
+      FXCollections.observableArrayList(rootDirItem));
+ 
+    DirectoryView v = new DirectoryView();
+    v.setIconSize(IconSize.MEDIUM);
+ 
+    tv.getSelectedItems().addListener( (Observable o) -> {
+      if( ! tv.getSelectedItems().isEmpty() ) {
+        v.setDir(tv.getSelectedItems().get(0));
+      } else {
+        v.setDir(null);
+      }
+    });
+ 
+    ResourcePreview prev = new ResourcePreview();
+    v.getSelectedItems().addListener((Observable o) -> {
+      if( v.getSelectedItems().size() == 1 ) {
+        prev.setItem(v.getSelectedItems().get(0));
+      } else {
+        prev.setItem(null);
+      }
+    });
+ 
+    SplitPane p = new SplitPane(tv,v, prev);
+    p.setDividerPositions(0.3,0.8);
+ 
+    Scene s = new Scene(p,500,500);
+    primaryStage.setScene(s);
+    primaryStage.show();
+  }
+ 
+  public static void main(String[] args) {
+    Application.launch(args);
+    rootDirItem.dispose();
+  }
 }

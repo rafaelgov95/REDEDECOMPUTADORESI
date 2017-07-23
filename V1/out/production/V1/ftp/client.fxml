@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<Pane prefHeight="409.0" prefWidth="601.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ftp.Controller">
+    <children>
+        <TextArea fx:id="textArea" editable="false" layoutX="0.0" layoutY="0.0" prefHeight="358.0" prefWidth="601.0" wrapText="true" />
+        <ScrollBar layoutX="588.0" layoutY="0.0" orientation="VERTICAL" prefHeight="358.0" visible="false" />
+        <Button fx:id="serverConnectButton" layoutX="14.0" layoutY="374.0" mnemonicParsing="false" onAction="#onConnectButtonClick" text="Server Connect" />
+        <Button fx:id="selectFileButton" disable="true" layoutX="140.0" layoutY="374.0" mnemonicParsing="false" onAction="#onFileSelectButtonClick" text="Select File" />
+        <Button fx:id="transferFileButton" cancelButton="false" disable="true" layoutX="239.0" layoutY="374.0" mnemonicParsing="false" onAction="#onTransferButtonClick" text="Transfer File" />
+        <Button fx:id="serverDisconnectButton" disable="true" layoutX="340.0" layoutY="374.0" mnemonicParsing="false" onAction="#onDisconnectButtonClick" text="Server Disconnect" />
+        <Button fx:id="HelpButton" layoutX="467.0" layoutY="374.0" mnemonicParsing="false" onAction="#onHelpButtonClick" text="Help" />
+        <Button fx:id="ExitButton" layoutX="536.0" layoutY="374.0" mnemonicParsing="false" onAction="#onExitButtonClick" text="Exit" />
+    </children>
+</Pane>

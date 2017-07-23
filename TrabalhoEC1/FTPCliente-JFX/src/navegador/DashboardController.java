@@ -30,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
+import org.apache.commons.net.ftp.FTPFile;
 import socket.FTPFactory;
 
 /**
@@ -94,7 +95,11 @@ public class DashboardController implements Initializable {
         sideAnchor.getChildren().add(fXRippler);
         toolBarRight.getChildren().add(fXRippler2);
         openMenus();
-        Navegacao();
+        try {
+            Navegacao();
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -113,7 +118,7 @@ public class DashboardController implements Initializable {
     private void setNode(Node node) {
         holderPane.getChildren().clear();
         holderPane.getChildren().add((Node) node);
-
+        
         FadeTransition ft = new FadeTransition(Duration.millis(1500));
         ft.setNode(node);
         ft.setFromValue(0.1);
@@ -123,12 +128,15 @@ public class DashboardController implements Initializable {
         ft.play();
     }
 
-    private void Navegacao() {
+    private void Navegacao() throws IOException {
         
-        
-        TreeItem<File> root = createNode(new File("/home/rafael"));
-        TreeView treeView = new TreeView<File>(root);
-        holderPane.getChildren().add(treeView);
+//        for (FTPFile file : FTPFactory.getInstance().FTPDirectory()){
+//            System.out.println(file.getName());
+//        }
+        navegacao = FXMLLoader.load(getClass().getResource("/modules/Overview.fxml"));
+//        TreeItem<File> root = createNode(new File(FTPFactory.getInstance().FTPDirectory()));
+//        TreeView treeView = new TreeView<>(root);
+//        holderPane.getChildren().add(treeView);
 
     }
 

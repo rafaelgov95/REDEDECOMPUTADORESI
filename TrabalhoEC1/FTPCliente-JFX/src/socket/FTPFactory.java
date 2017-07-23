@@ -10,8 +10,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.ftp.FTPListParseEngine;
 import org.apache.commons.net.ftp.FTPReply;
 
 /**
@@ -21,13 +24,13 @@ import org.apache.commons.net.ftp.FTPReply;
 public class FTPFactory {
 
     private final FTPClient ftp;
-
+    
     private FTPFactory() {
         this.ftp = new FTPClient();
-
     }
 
     public static FTPFactory getInstance() {
+        
         return FTPFactoryHolder.INSTANCE;
     }
 //    public FTP(){}
@@ -39,6 +42,13 @@ public class FTPFactory {
         private static final FTPFactory INSTANCE = new FTPFactory();
     }
     
+    public  FTPFile[] FTPDirectory() throws IOException{
+        
+       FTPListParseEngine engine = ftp.initiateListParsing();
+       FTPFile[] files = engine.getFiles();
+       return files;
+    
+    }
     public int FTPConecta(String host, String user, String pwd) throws Exception {
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         int reply;
