@@ -174,7 +174,7 @@ public static Image folderCollapseImage = new Image(ClassLoader.getSystemResourc
     public void mouseClick(MouseEvent mouseEvent)
     {
      TreeItem<String> item = Tree.getSelectionModel().getSelectedItem();
-        System.out.println(item.);
+        System.out.println(item.getValue());
     }
 
     @FXML
