@@ -250,23 +250,33 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             String novolink = "";
             if (selected.getParent().getValue() != null) {
-
-                try {
-                    FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
-                    novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                try {
-                    String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
-
-                    if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
-                        selected.getValue().setRawListing(novoNome);
-                        selected.getValue().setLink(novolink + separador + novoNome);
-                        Tree.refresh();
+                if (selected.getChildren().isEmpty()) {
+                    try {
+                        FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
+                        novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
                     }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                    try {
+                        String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
+
+                        if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
+                            selected.getValue().setRawListing(novoNome);
+                            selected.getValue().setLink(novolink + separador + novoNome);
+                            JOptionPane.showMessageDialog(null, "Arquivo Modificado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
+
+                            Tree.refresh();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
+
+                        }
+
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "Arquivo não pode ter filho ", "Erro", JOptionPane.WARNING_MESSAGE);
                 }
             }
 
@@ -318,7 +328,7 @@ public class NavegadorController implements Initializable {
                         TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(pasta));
 
                         if (selected.getValue().isDirectory()) {
-                            f.setLink(selected.getValue().getLink() +separador + text);
+                            f.setLink(selected.getValue().getLink() + separador + text);
                             System.out.println("Link: " + f.getLink());
                             if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
                                 selected.getChildren().add(newItem);
