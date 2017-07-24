@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 //import org.apache.commons.net.PrintCommandListener;
+import javafx.scene.control.TreeItem;
+import modelo.FTPFIle;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPListParseEngine;
@@ -24,16 +26,18 @@ import org.apache.commons.net.ftp.FTPReply;
 public class FTPFactory {
 
     private final FTPClient ftp;
-    
+    private TreeItem<FTPFile> file;
     private FTPFactory() {
         this.ftp = new FTPClient();
+        this.file = new TreeItem<FTPFile>();
     }
 
     public static FTPFactory getInstance() {
         
         return FTPFactoryHolder.INSTANCE;
     }
-//    public FTP(){}
+
+
     /**
      * Classe privada que armazena a única instância de FTPFactory.
      */
@@ -41,18 +45,41 @@ public class FTPFactory {
 
         private static final FTPFactory INSTANCE = new FTPFactory();
     }
+
+
+
     public FTPClient getFTP(){
         return this.ftp;
     }
-    public  FTPFile[] FTPDirectory() throws IOException{
-        
-       FTPListParseEngine engine = ftp.initiateListParsing();
-       FTPFile[] files = engine.getFiles();
+
+    public  FTPFIle[] FTPDirectory() throws IOException{
+       FTPFIle[] files = (FTPFIle[]) ftp.listFiles();
        return files;
     
     }
+    public boolean Excluir(){
+        try {
+            if(file.getValue().isDirectory()){
+             return    ftp.removeDirectory(file.getValue().getLink());
+            }else{
+             return   ftp.deleteFile(file.getValue().getLink());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+    public TreeItem<FTPFile> GetItemSelect (){
+
+           return file;
+    }
+
+    public void SetItemSelect (TreeItem<FTPFile> file){
+          this.file = file;
+
+    }
     public int FTPConecta(String host, String user, String pwd) throws Exception {
-//        ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         int reply;
         ftp.connect(host);
         reply = ftp.getReplyCode();
@@ -67,12 +94,14 @@ public class FTPFactory {
         return reply;
     }
 
+
     public void uploadFile(String localFileFullName, String fileName, String hostDir)
             throws Exception {
         try (InputStream input = new FileInputStream(new File(localFileFullName))) {
             this.ftp.storeFile(hostDir + fileName, input);
         }
     }
+
 
     public void disconnect() {
         if (this.ftp.isConnected()) {

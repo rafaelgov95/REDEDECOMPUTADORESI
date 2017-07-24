@@ -3,29 +3,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
-
-import java.io.IOException;
 
 /**
  *
- * @author danml
+ * @author rafael
  */
 public class Main  extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/client/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/cliente/Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         launch(args);
     }
