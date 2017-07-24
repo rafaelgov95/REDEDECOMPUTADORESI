@@ -99,6 +99,8 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
+
+
                               <JFXButton fx:id="btnAdd" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons" text="Criar Pasta" textFill="#757575">
                                  <font>
                                     <Font name="Roboto Medium" size="13.0" />
@@ -107,7 +109,24 @@
                                     <FontAwesomeIconView fill="#757575" glyphName="PLUS_SQUARE" size="16.0" wrappingWidth="40.0" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnView" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons" text="Editar" textFill="#757575" GridPane.rowIndex="1">
+
+                              <JFXButton fx:id="btnUp" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons" text="Upload" textFill="#757575" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Roboto Medium" size="13.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#757575" glyphName="CLOUD_UPLOAD" size="16.0" wrappingWidth="40.0" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btnBaixar" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons" text="Download" textFill="#757575" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Roboto Medium" size="13.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#757575" glyphName="CLOUD_DOWNLOAD" size="16.0" wrappingWidth="40.0" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btnEditar" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons" text="Editar" textFill="#757575" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="Roboto Medium" size="13.0" />
                                  </font>
@@ -115,7 +134,7 @@
                                     <FontAwesomeIconView fill="#757575" glyphName="EYE" size="16.0" wrappingWidth="40.0" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btnExcluir" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons"  text="Excluir" textFill="#757575" GridPane.rowIndex="2">
+                              <JFXButton fx:id="btnExcluir" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons"  text="Excluir" textFill="#757575" GridPane.rowIndex="4">
                                   <font>
                                     <Font name="Roboto Medium" size="13.0" />
                                  </font>

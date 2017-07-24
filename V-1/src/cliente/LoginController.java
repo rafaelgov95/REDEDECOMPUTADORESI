@@ -51,6 +51,8 @@ public class LoginController implements Initializable {
     private ImageView imgProgress;
     @FXML
     private JFXTextField txtHostName;
+    @FXML
+    private JFXTextField txtHostPort;
 
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -62,6 +64,7 @@ public class LoginController implements Initializable {
         handleValidation();
         imgProgress.setVisible(false);
         txtHostName.setText("localhost");
+        txtHostPort.setText("21");
     }
 
     @FXML
@@ -74,8 +77,7 @@ public class LoginController implements Initializable {
         pauseTransition.setOnFinished(ev -> {
             try {
 
-                int reply = FTPFactory.getInstance().FTPConecta(txtHostName.getText(), this.txtUsername.getText(),
-                        this.txtPassword.getText());
+                int reply = FTPFactory.getInstance().FTPConecta(txtHostName.getText(),Integer.parseInt(txtHostPort.getText()),this.txtUsername.getText(),this.txtPassword.getText());
                 System.out.println("Igual:" + reply);
                 if (reply == 230) {
                     btnLogin.getScene().getWindow().hide();

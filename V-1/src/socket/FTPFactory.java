@@ -19,6 +19,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPListParseEngine;
 import org.apache.commons.net.ftp.FTPReply;
 
+
 /**
  *
  * @author rafael
@@ -29,7 +30,7 @@ public class FTPFactory {
     private TreeItem<FTPFile> file;
     private FTPFactory() {
         this.ftp = new FTPClient();
-        this.file = new TreeItem<FTPFile>();
+//        this.file = new TreeItem<FTPFile>();
     }
 
     public static FTPFactory getInstance() {
@@ -57,12 +58,14 @@ public class FTPFactory {
        return files;
     
     }
-    public boolean Excluir(){
+    public boolean Excluir(FTPFile file){
         try {
-            if(file.getValue().isDirectory()){
-             return    ftp.removeDirectory(file.getValue().getLink());
+            if(file.isDirectory()){
+                System.out.println(file.getLink());
+             return    ftp.removeDirectory(file.getLink());
             }else{
-             return   ftp.deleteFile(file.getValue().getLink());
+                System.out.println(file.getLink());
+             return   ftp.deleteFile(file.getLink());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,18 +73,11 @@ public class FTPFactory {
         }
         return false;
     }
-    public TreeItem<FTPFile> GetItemSelect (){
 
-           return file;
-    }
 
-    public void SetItemSelect (TreeItem<FTPFile> file){
-          this.file = file;
-
-    }
-    public int FTPConecta(String host, String user, String pwd) throws Exception {
+    public int FTPConecta(String host,int port, String user, String pwd) throws Exception {
         int reply;
-        ftp.connect(host);
+        ftp.connect(host,port);
         reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
@@ -91,16 +87,11 @@ public class FTPFactory {
         reply = ftp.getReplyCode();
         ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
         ftp.enterLocalPassiveMode();
+        ftp.setAutodetectUTF8(true);
         return reply;
     }
 
 
-    public void uploadFile(String localFileFullName, String fileName, String hostDir)
-            throws Exception {
-        try (InputStream input = new FileInputStream(new File(localFileFullName))) {
-            this.ftp.storeFile(hostDir + fileName, input);
-        }
-    }
 
 
     public void disconnect() {
@@ -109,7 +100,7 @@ public class FTPFactory {
                 this.ftp.logout();
                 this.ftp.disconnect();
             } catch (IOException f) {
-                // do nothing as file is already saved to server
+
             }
         }
     }
