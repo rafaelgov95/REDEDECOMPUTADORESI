@@ -64,12 +64,12 @@
                         </ImageView>
                     </children>
                 </AnchorPane>
-                <Label layoutX="117.0" layoutY="-67.0" prefHeight="205.0" prefWidth="663.0" text=" VF SISTEMA GERENCIADOR FTP" textFill="WHITE">
+                <Label layoutX="117.0" layoutY="-67.0" prefHeight="205.0" prefWidth="663.0" text=" RV SISTEMA GERENCIADOR FTP" textFill="WHITE">
                     <font>
                         <Font name="DejaVu Serif Bold" size="31.0" />
                     </font>
                 </Label>
-                <Label layoutX="380.0" layoutY="67.0" text="FTP Cliente" textFill="WHITE">
+                <Label layoutX="312.0" layoutY="67.0" prefHeight="25.0" prefWidth="261.0" text="FTP Cliente - Rafael Viana " textFill="WHITE">
                     <font>
                         <Font name="Roboto Light" size="18.0" />
                     </font>

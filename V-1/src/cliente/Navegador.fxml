@@ -77,7 +77,7 @@
                   </HBox>
                </right>
                <center>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SISTEMA GERENCIADOR DE FTP" wrappingWidth="273.13671875" BorderPane.alignment="CENTER">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SISTEMA GERENCIADOR DE FTP - RAFAEL VIANA" wrappingWidth="273.13671875" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="Roboto Medium" size="17.0" />
                      </font>
