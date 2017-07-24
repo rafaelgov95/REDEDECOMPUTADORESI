@@ -74,15 +74,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NavegadorController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NavegadorController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cliente/NavegadorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="377" column="99" lean-forward="true" selection-start-line="377" selection-start-column="99" selection-end-line="377" selection-end-column="99" />
+            <state relative-caret-position="331">
+              <caret line="422" column="0" lean-forward="true" selection-start-line="422" selection-start-column="0" selection-end-line="422" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8449#8458#0" expanded="true" />
-                <element signature="e#13911#13920#0" expanded="true" />
+                <element signature="e#13819#13828#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,14 +128,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Navegador.fxml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Navegador.fxml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cliente/Navegador.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="92" column="26" lean-forward="false" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
+            <state relative-caret-position="164">
+              <caret line="44" column="146" lean-forward="false" selection-start-line="44" selection-start-column="146" selection-end-line="44" selection-end-column="146" />
               <folding />
             </state>
           </provider>
@@ -247,11 +247,11 @@
         <option value="$PROJECT_DIR$/src/socket/Config.java" />
         <option value="$PROJECT_DIR$/src/EC1/Controle.java" />
         <option value="$PROJECT_DIR$/src/socket/Limitador.java" />
-        <option value="$PROJECT_DIR$/src/cliente/Navegador.fxml" />
         <option value="$PROJECT_DIR$/src/cliente/LoginController.java" />
         <option value="$PROJECT_DIR$/src/cliente/Login.fxml" />
         <option value="$PROJECT_DIR$/src/socket/FTPFactory.java" />
         <option value="$PROJECT_DIR$/src/cliente/NavegadorController.java" />
+        <option value="$PROJECT_DIR$/src/cliente/Navegador.fxml" />
       </list>
     </option>
   </component>
@@ -617,12 +617,12 @@
       <workItem from="1500756005122" duration="17466000" />
       <workItem from="1500825685316" duration="50343000" />
       <workItem from="1500898576099" duration="9963000" />
-      <workItem from="1500915753179" duration="4794000" />
+      <workItem from="1500915753179" duration="4877000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99397000" />
+    <option name="totallyTimeSpent" value="99480000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -646,8 +646,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959402" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26549146" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -683,15 +683,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/cliente/NavegadorController.java</url>
-          <line>418</line>
-          <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="4" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -794,7 +786,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8449#8458#0" expanded="true" />
-            <element signature="e#13911#13920#0" expanded="true" />
+            <element signature="e#13819#13828#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -917,17 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cliente/Navegador.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="92" column="26" lean-forward="false" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/event/EventHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -938,13 +919,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cliente/NavegadorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="377" column="99" lean-forward="true" selection-start-line="377" selection-start-column="99" selection-end-line="377" selection-end-column="99" />
+        <state relative-caret-position="331">
+          <caret line="422" column="0" lean-forward="true" selection-start-line="422" selection-start-column="0" selection-end-line="422" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8449#8458#0" expanded="true" />
-            <element signature="e#13911#13920#0" expanded="true" />
+            <element signature="e#13819#13828#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cliente/Navegador.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="44" column="146" lean-forward="false" selection-start-line="44" selection-start-column="146" selection-end-line="44" selection-end-column="146" />
+          <folding />
         </state>
       </provider>
     </entry>

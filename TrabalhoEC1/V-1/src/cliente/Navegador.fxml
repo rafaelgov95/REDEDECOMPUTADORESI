@@ -42,7 +42,7 @@
          <children>
             <VBox fx:id="overflowContainer" prefHeight="104.0" prefWidth="164.0" styleClass="card-white">
                <children>
-                  <JFXButton fx:id="btnLogOut" onAction="#logOff" prefHeight="52.0" prefWidth="163.0" style="-fx-alignment: left;" text="Log out">
+                  <JFXButton fx:id="btnLogOut" onAction="#logOff" prefHeight="52.0" prefWidth="163.0" style="-fx-alignment: left;" text="Disconect">
                      <font>
                         <Font name="Roboto Medium" size="13.0" />
                      </font>

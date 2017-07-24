@@ -252,37 +252,37 @@ public class NavegadorController implements Initializable {
             String novolink = "";
             if (selected.getParent().getValue() != null) {
 //                if (selected.getChildren().isEmpty()) {
-                    try {
-                        FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
-                        novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    try {
-                        String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
-
-                        if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
-                            novolink = novolink + separador + novoNome;
-                            selected.getValue().setRawListing(novoNome);
-                            selected.getValue().setLink(novolink);
-
-                            recursivao(selected);
-
-                            JOptionPane.showMessageDialog(null, "Arquivo Modificado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
-
-                            Tree.refresh();
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
-
-                        }
-
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-
-                }else{
-                    JOptionPane.showMessageDialog(null, "Arquivo não pode ter filho ", "Erro", JOptionPane.WARNING_MESSAGE);
+                try {
+                    FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
+                    novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
+                try {
+                    String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
+
+                    if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
+                        novolink = novolink + separador + novoNome;
+                        selected.getValue().setRawListing(novoNome);
+                        selected.getValue().setLink(novolink);
+
+                        recursivao(selected);
+
+                        JOptionPane.showMessageDialog(null, "Arquivo Modificado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
+
+                        Tree.refresh();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
+
+                    }
+
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Arquivo não pode ter filho ", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
 //            }
 
         });
@@ -373,19 +373,20 @@ public class NavegadorController implements Initializable {
     }
 
 
-public void recursivao(TreeItem<FTPFile> a ) {
+    public void recursivao(TreeItem<FTPFile> a) {
         String novolink;
-    for (Iterator<TreeItem<FTPFile>> iterator = a.getChildren().iterator(); iterator.hasNext(); ) {
-        TreeItem<FTPFile> c = iterator.next();
-        novolink = a.getValue().getLink() + separador + c.getValue().getName();
-        c.getValue().setLink(novolink);
+        for (Iterator<TreeItem<FTPFile>> iterator = a.getChildren().iterator(); iterator.hasNext(); ) {
+            TreeItem<FTPFile> c = iterator.next();
+            novolink = a.getValue().getLink() + separador + c.getValue().getName();
+            c.getValue().setLink(novolink);
 
-        if(!c.getChildren().isEmpty()){
-            recursivao(c);
+            if (!c.getChildren().isEmpty()) {
+                recursivao(c);
+            }
+
         }
-
     }
-}
+
     public TreeItem<FTPFile> getNodesForDirectory(FTPFile directory, boolean v) throws IOException {
         TreeItem<FTPFile> root;
         if (v) {
@@ -417,7 +418,6 @@ public void recursivao(TreeItem<FTPFile> a ) {
     @FXML
     private void logOff(ActionEvent event) throws IOException {
         FTPFactory.getInstance().disconnect();
-
 
     }
 
