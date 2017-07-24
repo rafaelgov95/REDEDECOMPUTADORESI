@@ -269,22 +269,17 @@ public class NavegadorController implements Initializable {
 
         btnExcluir.setOnAction(e -> {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-            int reply = JOptionPane.showConfirmDialog(null, "Testando", "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esse arquivo ?", "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "HELLO");
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "GOODBYE");
-                System.exit(0);
+                if(FTPFactory.getInstance().Excluir(selected.getValue())){
+                    System.out.println(selected.getValue().getLink());
+                    selected.getParent().getChildren().remove(selected);
+                    JOptionPane.showMessageDialog(null, "Excluido ","OK",JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Erro ao excluir arquivo ","Erro",JOptionPane.WARNING_MESSAGE);
+                }
             }
 
-//            if(FTPFactory.getInstance().Excluir(selected.getValue())){
-//                System.out.println(selected.getValue().getLink());
-//                selected.getParent().getChildren().remove(selected);
-//            }else{
-//                System.out.println("nao apago");
-//
-//            }
         });
 
 
