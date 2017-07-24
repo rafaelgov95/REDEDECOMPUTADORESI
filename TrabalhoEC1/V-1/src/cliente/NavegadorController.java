@@ -111,7 +111,7 @@ public class NavegadorController implements Initializable {
     }
 
     private int limiteNivel() throws IOException {
-        int num = FTPFactory.getInstance().getFTP().printWorkingDirectory().split("separador").length;
+        int num = FTPFactory.getInstance().getFTP().printWorkingDirectory().split("/").length;
         return num;
     }
 
@@ -132,7 +132,6 @@ public class NavegadorController implements Initializable {
         TreeItem<FTPFile> treeRoot;
         files = FTPFactory.getInstance().getFTP().listFiles();
         Tree.setEditable(true);
-
         if (files != null && files.length > 0) {
             files[0].setRawListing(FTPFactory.getInstance().getFTP().getPassiveHost());
             treeRoot = getNodesForDirectory(files[0], true);
@@ -185,6 +184,7 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             try {
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
+
                 if (limiteNivel() <= 5) {
                     if (limiteArquivo()) {
                         JFileChooser fc = new JFileChooser();
@@ -251,7 +251,6 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             String novolink = "";
             if (selected.getParent().getValue() != null) {
-//                if (selected.getChildren().isEmpty()) {
                 try {
                     FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
                     novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
@@ -283,7 +282,6 @@ public class NavegadorController implements Initializable {
             } else {
                 JOptionPane.showMessageDialog(null, "Arquivo não pode ter filho ", "Erro", JOptionPane.WARNING_MESSAGE);
             }
-//            }
 
         });
 
@@ -295,17 +293,20 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             int reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esse arquivo ?", "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                if (FTPFactory.getInstance().Excluir(selected.getValue())) {
-                    System.out.println(selected.getValue().getLink());
+                if (lol(selected)) {
                     selected.getParent().getChildren().remove(selected);
-                    JOptionPane.showMessageDialog(null, "Excluido ", "OK", JOptionPane.INFORMATION_MESSAGE);
+                    if (selected.getValue().isDirectory()) {
+                        JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Arquivo Foi Apagado com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao excluir arquivo ", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir !.", "Exclusão", JOptionPane.WARNING_MESSAGE);
+
                 }
             }
 
         });
-
 
         btnExcluir.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
                 .or(Tree.getSelectionModel().selectedItemProperty().isEqualTo(treeRoot)));
@@ -317,6 +318,7 @@ public class NavegadorController implements Initializable {
             try {
                 TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
+                System.out.println(limiteNivel());
                 if (limiteNivel() <= 5) {
                     if (limitePasta()) {
                         if (selected == null) {
@@ -372,6 +374,31 @@ public class NavegadorController implements Initializable {
 
     }
 
+    public boolean lol(TreeItem<FTPFile> a) {
+        boolean flag = false;
+
+        if (a.getChildren().isEmpty()) {
+            System.out.println("Filho Vazio: " + a.getValue().getLink());
+            System.out.println(a.getValue().getLink());
+            if (FTPFactory.getInstance().Excluir(a.getValue())) {
+                System.out.println(a.getValue().getLink());
+
+            }
+        } else {
+
+            for (TreeItem<FTPFile> iterator: a.getChildren()){
+                System.out.println("Filho : "+ a.getValue().getLink());
+                    lol(iterator);
+            }
+
+            if (FTPFactory.getInstance().Excluir(a.getValue())) {
+                System.out.println(a.getValue().getLink());
+
+            }
+        }
+        return true;
+    }
+
 
     public void recursivao(TreeItem<FTPFile> a) {
         String novolink;
@@ -379,7 +406,6 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> c = iterator.next();
             novolink = a.getValue().getLink() + separador + c.getValue().getName();
             c.getValue().setLink(novolink);
-
             if (!c.getChildren().isEmpty()) {
                 recursivao(c);
             }
@@ -389,6 +415,7 @@ public class NavegadorController implements Initializable {
 
     public TreeItem<FTPFile> getNodesForDirectory(FTPFile directory, boolean v) throws IOException {
         TreeItem<FTPFile> root;
+
         if (v) {
             directory.setType(FTPFile.DIRECTORY_TYPE);
             directory.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
@@ -397,6 +424,7 @@ public class NavegadorController implements Initializable {
         } else {
             root = new TreeItem<FTPFile>(directory, new ImageView(pasta));
         }
+        root.setExpanded(true);
         FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles();
         for (FTPFile f : files) {
             System.out.println("Carregando .. " + f.getName());

@@ -54,10 +54,10 @@ public class FTPFactory {
     public boolean Excluir(FTPFile file) {
         try {
             if (file.isDirectory()) {
-                System.out.println(file.getLink());
+                System.out.println("Entro aqui Diretorio "+file.getLink());
                 return ftp.removeDirectory(file.getLink());
             } else {
-                System.out.println(file.getLink());
+                System.out.println("Entro aqui arquivo "+file.getLink());
                 return ftp.deleteFile(file.getLink());
             }
         } catch (IOException e) {
