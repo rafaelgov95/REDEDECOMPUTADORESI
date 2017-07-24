@@ -20,19 +20,19 @@ import org.apache.commons.net.ftp.FTPReply;
 
 
 /**
- *
  * @author rafael
  */
 public class FTPFactory {
 
     private final FTPClient ftp;
     private TreeItem<FTPFile> file;
+
     private FTPFactory() {
         this.ftp = new FTPClient();
     }
 
     public static FTPFactory getInstance() {
-        
+
         return FTPFactoryHolder.INSTANCE;
     }
 
@@ -46,20 +46,19 @@ public class FTPFactory {
     }
 
 
-
-    public FTPClient getFTP(){
+    public FTPClient getFTP() {
         return this.ftp;
     }
 
 
-    public boolean Excluir(FTPFile file){
+    public boolean Excluir(FTPFile file) {
         try {
-            if(file.isDirectory()){
+            if (file.isDirectory()) {
                 System.out.println(file.getLink());
-             return    ftp.removeDirectory(file.getLink());
-            }else{
+                return ftp.removeDirectory(file.getLink());
+            } else {
                 System.out.println(file.getLink());
-             return   ftp.deleteFile(file.getLink());
+                return ftp.deleteFile(file.getLink());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,9 +68,9 @@ public class FTPFactory {
     }
 
 
-    public int FTPConecta(String host,int port, String user, String pwd) throws Exception {
+    public int FTPConecta(String host, int port, String user, String pwd) throws Exception {
         int reply;
-        ftp.connect(host,port);
+        ftp.connect(host, port);
         reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
@@ -84,8 +83,6 @@ public class FTPFactory {
         ftp.setAutodetectUTF8(true);
         return reply;
     }
-
-
 
 
     public void disconnect() {

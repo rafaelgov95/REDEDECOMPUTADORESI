@@ -128,10 +128,7 @@ public class NavegadorController implements Initializable {
 
     private void Navegacao() throws IOException {
         FTPFile files[];
-
-
         TreeItem<FTPFile> treeRoot;
-
         files = FTPFactory.getInstance().getFTP().listFiles();
         Tree.setEditable(true);
 
