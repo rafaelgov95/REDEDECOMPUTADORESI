@@ -32,6 +32,8 @@ import javafx.util.Duration;
 
 import socket.FTPFactory;
 
+import javax.swing.*;
+
 /**
  *
  * @author rafael
@@ -54,10 +56,6 @@ public class LoginController implements Initializable {
     @FXML
     private JFXTextField txtHostPort;
 
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,6 +83,7 @@ public class LoginController implements Initializable {
                 } else {
                     imgProgress.setVisible(false);
                     btnLogin.setVisible(true);
+                    JOptionPane.showMessageDialog(null,"Erro Senha ou Usuário incorreto !!", "Erro ao Logar",JOptionPane.ERROR_MESSAGE);
 
                 }
 //

@@ -36,19 +36,16 @@
 \section{JavaFx}
 
 Foi escolhido o JavaFx para criar uma interface gráfica onde o usuário terá um melhor desempenho, ao utilizar o sistema.
-	Para criar um sistema elegante juntamente do JavaFx foi utilizado uma biblioteca com novos elementos CSS, a bibliteca utilizada para essa finalidade foi  \textbf{JFoenix}, essa bibliteca é open sorce e pode ser baixada no github https://github.com/jfoenixadmin/JFoenix
+Para criar um sistema elegante foi utilizado uma biblioteca com novos elementos CSS, a bibliteca utilizada para essa finalidade foi  \textbf{JFoenix}, essa bibliteca é open sorce e pode ser baixada no github https://github.com/jfoenixadmin/JFoenix
+Para icones foi utilizado a biblioteca fontawesomefx-8.9 
 	
 \section{Apache Commons Net 3.6} \label{sec:firstpage}
 
 	Para melhor desempenho nas conexões ftp, foi utilizada a biblioteca de conexão FTP da Apache Commons, onde a mesma se encontra na versão 3.6 current.
 
-\section{CD-ROMs and Printed Proceedings}
+\section{Problematica}
 
-In some conferences, the papers are published on CD-ROM while only the
-abstract is published in the printed Proceedings. In this case, authors are
-invited to prepare two final versions of the paper. One, complete, to be
-published on the CD and the other, containing only the first page, with
-abstract and ``resumo'' (for papers in Portuguese).
+U
 
 \section{Sections and Paragraphs}
 
@@ -133,4 +130,31 @@ indented, while the subsequent should be indented by 0.5 cm.
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
 
+\section{Anexos}
+
+\begin{verbatim}
+
+
+
+public class Main  extends Application{
+
+	@Override
+	public void start(Stage stage) throws Exception {
+	Parent root = FXMLLoader.load(getClass().getResource("/cliente/Login.fxml"));
+	Scene scene = new Scene(root);
+	stage.setScene(scene);
+	stage.show();
+}
+
+
+public static void main(String[] args) {
+	launch(args);
+
+}
+
+}
+\end{verbatim}
+
 \end{document}
+
+
