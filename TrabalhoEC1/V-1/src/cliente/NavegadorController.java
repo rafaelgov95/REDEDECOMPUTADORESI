@@ -70,7 +70,7 @@ public class NavegadorController implements Initializable {
 
 
     Limitador limite = new Limitador(5, 2);
-
+    String separador = System.getProperty("file.separator");
     public static Image computador = new Image(ClassLoader.getSystemResourceAsStream("icons/computer.png"));
     public static Image pasta = new Image(ClassLoader.getSystemResourceAsStream("icons/folder.png"));
     public static Image arquivo = new Image(ClassLoader.getSystemResourceAsStream("icons/text-x-generic.png"));
@@ -110,7 +110,7 @@ public class NavegadorController implements Initializable {
     }
 
     private int limiteNivel() throws IOException {
-        int num = FTPFactory.getInstance().getFTP().printWorkingDirectory().split("/").length;
+        int num = FTPFactory.getInstance().getFTP().printWorkingDirectory().split("separador").length;
         return num;
     }
 
@@ -187,7 +187,7 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             try {
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-                if (limiteNivel() <= 3) {
+                if (limiteNivel() <= 5) {
                     if (limiteArquivo()) {
                         JFileChooser fc = new JFileChooser();
                         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -205,10 +205,10 @@ public class NavegadorController implements Initializable {
 
                                 if (selected.getValue().isDirectory()) {
                                     FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-                                    f.setLink(selected.getValue().getLink() + "/" + arquivo.getName());
+                                    f.setLink(selected.getValue().getLink() + separador + arquivo.getName());
                                 } else {
                                     FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
-                                    f.setLink(selected.getParent().getValue().getLink() + "/" + arquivo.getName());
+                                    f.setLink(selected.getParent().getValue().getLink() + separador + arquivo.getName());
                                 }
 
                                 if (FTPFactory.getInstance().getFTP().storeFile(arquivo.getName(), isArquivo)) {
@@ -265,7 +265,7 @@ public class NavegadorController implements Initializable {
 
                     if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
                         selected.getValue().setRawListing(novoNome);
-                        selected.getValue().setLink(novolink + "/" + novoNome);
+                        selected.getValue().setLink(novolink + separador + novoNome);
                         Tree.refresh();
                     }
                 } catch (IOException e1) {
@@ -305,7 +305,7 @@ public class NavegadorController implements Initializable {
             try {
                 TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-                if (limiteNivel() <= 3) {
+                if (limiteNivel() <= 5) {
                     if (limitePasta()) {
                         if (selected == null) {
                             selected = treeRoot;
@@ -321,24 +321,23 @@ public class NavegadorController implements Initializable {
                         TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(pasta));
 
                         if (selected.getValue().isDirectory()) {
-                            f.setLink(selected.getValue().getLink() + "/" + text);
+                            f.setLink(selected.getValue().getLink() +separador + text);
                             System.out.println("Link: " + f.getLink());
                             if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
                                 selected.getChildren().add(newItem);
                                 Tree.getSelectionModel().select(newItem);
                             } else {
-                                System.out.println("erro ao adicionar Pasta");
+                                JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
                             }
                         } else {
                             if (selected.getParent().getValue() != null) {
-
-                                f.setLink(selected.getParent().getValue().getLink() + "/" + text);
+                                f.setLink(selected.getParent().getValue().getLink() + separador + text);
                                 System.out.println("Link: " + f.getLink());
                                 if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
                                     selected.getParent().getChildren().add(newItem);
                                     Tree.getSelectionModel().select(newItem);
                                 } else {
-                                    System.out.println("erro ao adicionar Pasta");
+                                    JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
                                 }
                             }
 
@@ -381,7 +380,7 @@ public class NavegadorController implements Initializable {
                 System.out.println(f.getLink());
                 root.getChildren().add(getNodesForDirectory(f, false));
             } else {
-                f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory() + "/" + f.getName());
+                f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory() + separador + f.getName());
                 root.getChildren().add(new TreeItem<FTPFile>(f, new ImageView(this.arquivo)));
             }
         }

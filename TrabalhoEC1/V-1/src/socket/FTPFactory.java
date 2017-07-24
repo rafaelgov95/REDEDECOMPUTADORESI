@@ -29,7 +29,6 @@ public class FTPFactory {
     private TreeItem<FTPFile> file;
     private FTPFactory() {
         this.ftp = new FTPClient();
-//        this.file = new TreeItem<FTPFile>();
     }
 
     public static FTPFactory getInstance() {

@@ -3,12 +3,37 @@
 \usepackage{sbc-template}
 
 \usepackage{graphicx,url}
-
+\usepackage{float}
 \usepackage[brazil]{babel}   
 %\usepackage[latin1]{inputenc}  
 \usepackage[utf8]{inputenc}  
 % UTF-8 encoding is recommended by ShareLaTex
-
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+	language=Java,
+	basicstyle=\ttfamily\small, 
+	keywordstyle=\color{jpurple}\bfseries,
+	stringstyle=\color{red},
+	commentstyle=\color{verde},
+	morecomment=[s][\color{blue}]{/**}{*/},
+	extendedchars=true, 
+	showspaces=false, 
+	showstringspaces=false, 
+	numbers=left,
+	numberstyle=\tiny,
+	breaklines=true, 
+	backgroundcolor=\color{cyan!10}, 
+	breakautoindent=true, 
+	captionpos=b,
+	xleftmargin=0pt,
+	tabsize=4
+}
+\pagestyle{empty}
      
 \sloppy
 
@@ -132,13 +157,28 @@ indented, while the subsequent should be indented by 0.5 cm.
 
 \section{Anexos}
 
-\begin{verbatim}
+A estrutura do código foi dividida em 3 pastas sendo elas Cliente, Icons e Socket.
+
+ \subsection{A pasta cliente é responsável pela parte de Interface Gráfica do Usuário.}
+ \subsection{A pasta Icons armazena icons utilizados na pasta cliente.}
+ \subsection{A pasta socket e responsável por toda comunicação da Lib da Apache com o código.}
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Imagens/001.png}
+	\caption{ Imagem da Tela de Login.}
+	\label{fig:01}
+\end{figure}
+
+
+Primeiramente a Class Main e invocada, chamando a Scene do Login.fxml.
+
+\begin{lstlisting}
 
 public class Main  extends Application{
 
-	@Override
+@Override
 	public void start(Stage stage) throws Exception {
 	Parent root = FXMLLoader.load(getClass().getResource("/cliente/Login.fxml"));
 	Scene scene = new Scene(root);
@@ -153,7 +193,161 @@ public static void main(String[] args) {
 }
 
 }
-\end{verbatim}
+
+\end{lstlisting}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Imagens/01.png}
+	\caption{ Imagem da Tela de Login.}
+	\label{fig:01}
+\end{figure}
+
+Com a tela de login aberta o usuário entra com as informações login , senha, endereço do host, port do host mostrado no código abaixo.
+
+\begin{lstlisting}
+
+private void login(ActionEvent event) {
+	btnLogin.setVisible(false);
+	imgProgress.setVisible(true);
+	
+	PauseTransition pauseTransition = new PauseTransition();
+	pauseTransition.setDuration(Duration.seconds(3));
+	pauseTransition.setOnFinished(ev -> {
+
+try {
+	
+	int reply = FTPFactory.getInstance().FTPConecta(txtHostName.getText(),Integer.parseInt(txtHostPort.getText()),this.txtUsername.getText(),this.txtPassword.getText());
+	System.out.println("Igual:" + reply);
+	
+	if (reply == 230) {
+	
+		btnLogin.getScene().getWindow().hide();
+		completeLogin();
+	
+	} else {
+	
+		imgProgress.setVisible(false);
+		btnLogin.setVisible(true);
+		JOptionPane.showMessageDialog(null,"Erro Senha ou Usuário incorreto !!", "Erro ao Logar",JOptionPane.ERROR_MESSAGE);
+	}
+
+} catch (IOException ex) {
+	Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+} catch (Exception ex) {
+	Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+}
+
+});
+  pauseTransition.play();
+}
+
+private void completeLogin() throws IOException {
+	
+	imgProgress.setVisible(false);
+	Stage dashboardStage = new Stage();
+	dashboardStage.setTitle("");
+	Parent root = FXMLLoader.load(getClass().getResource("Navegador.fxml"));
+	Scene scene = new Scene(root);
+	dashboardStage.setScene(scene);
+	dashboardStage.show();
+	
+}
+\end{lstlisting}
+Após validar os dados de usuário a tela de navegação de documentos e aberta, essa tela nada mais é do que um conjunto de botões em uma Grid e um TreeView do JavaFX.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{Imagens/02.png}
+	\caption{ Imagem da Tela de Navegação.}
+	\label{fig:01}
+\end{figure}
+
+Para poder realizar a comunicação entre as classes e o FTPClient da apache, foi criado uma classe chamada de FTPFactory onde cria uma getInstance de FTPClient, podendo ser chamada de qualquer classe sem ter que que ser instanciada novamente, oque iria ocasionar a perda da conexão FTP.
+
+\begin{lstlisting}
+public class FTPFactory {
+	
+	private final FTPClient ftp;
+	private TreeItem<FTPFile> file;
+	private FTPFactory() {
+		this.ftp = new FTPClient();
+	}
+	
+	public static FTPFactory getInstance() {
+		
+		return FTPFactoryHolder.INSTANCE;
+	}
+	
+	
+	/**
+	* Classe privada que armazena a única instância de FTPFactory.
+	*/
+	private static class FTPFactoryHolder {
+		
+		private static final FTPFactory INSTANCE = new FTPFactory();
+	}
+	
+	
+	
+	public FTPClient getFTP(){
+		return this.ftp;
+	}
+	
+	
+	public boolean Excluir(FTPFile file){
+		try {
+			if(file.isDirectory()){
+				System.out.println(file.getLink());
+				return    ftp.removeDirectory(file.getLink());
+			}else{
+				System.out.println(file.getLink());
+				return   ftp.deleteFile(file.getLink());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		}
+		return false;
+	}
+	
+	
+	public int FTPConecta(String host,int port, String user, String pwd) throws Exception {
+		int reply;
+		ftp.connect(host,port);
+		reply = ftp.getReplyCode();
+		if (!FTPReply.isPositiveCompletion(reply)) {
+			ftp.disconnect();
+			throw new Exception("Exception in connecting to FTP Server");
+		}
+		ftp.login(user, pwd);
+		reply = ftp.getReplyCode();
+		ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
+		ftp.enterLocalPassiveMode();
+		ftp.setAutodetectUTF8(true);
+		return reply;
+	}
+	
+	
+	
+	
+	public void disconnect() {
+		if (this.ftp.isConnected()) {
+			try {
+				this.ftp.logout();
+				this.ftp.disconnect();
+			} catch (IOException f) {
+				
+			}
+		}
+	}
+	
+}
+\end{lstlisting}
+
+
+
 
 \end{document}
 
