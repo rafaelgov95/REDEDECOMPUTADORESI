@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 //import org.apache.commons.net.PrintCommandListener;
 import javafx.scene.control.TreeItem;
-import modelo.FTPFIle;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPListParseEngine;
@@ -53,11 +52,7 @@ public class FTPFactory {
         return this.ftp;
     }
 
-    public  FTPFIle[] FTPDirectory() throws IOException{
-       FTPFIle[] files = (FTPFIle[]) ftp.listFiles();
-       return files;
-    
-    }
+
     public boolean Excluir(FTPFile file){
         try {
             if(file.isDirectory()){
