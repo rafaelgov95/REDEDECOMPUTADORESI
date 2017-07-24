@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXToolbar;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -250,7 +251,7 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             String novolink = "";
             if (selected.getParent().getValue() != null) {
-                if (selected.getChildren().isEmpty()) {
+//                if (selected.getChildren().isEmpty()) {
                     try {
                         FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
                         novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
@@ -261,8 +262,12 @@ public class NavegadorController implements Initializable {
                         String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
 
                         if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
+                            novolink = novolink + separador + novoNome;
                             selected.getValue().setRawListing(novoNome);
-                            selected.getValue().setLink(novolink + separador + novoNome);
+                            selected.getValue().setLink(novolink);
+
+                            recursivao(selected);
+
                             JOptionPane.showMessageDialog(null, "Arquivo Modificado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
 
                             Tree.refresh();
@@ -278,7 +283,7 @@ public class NavegadorController implements Initializable {
                 }else{
                     JOptionPane.showMessageDialog(null, "Arquivo não pode ter filho ", "Erro", JOptionPane.WARNING_MESSAGE);
                 }
-            }
+//            }
 
         });
 
@@ -368,6 +373,19 @@ public class NavegadorController implements Initializable {
     }
 
 
+public void recursivao(TreeItem<FTPFile> a ) {
+        String novolink;
+    for (Iterator<TreeItem<FTPFile>> iterator = a.getChildren().iterator(); iterator.hasNext(); ) {
+        TreeItem<FTPFile> c = iterator.next();
+        novolink = a.getValue().getLink() + separador + c.getValue().getName();
+        c.getValue().setLink(novolink);
+
+        if(!c.getChildren().isEmpty()){
+            recursivao(c);
+        }
+
+    }
+}
     public TreeItem<FTPFile> getNodesForDirectory(FTPFile directory, boolean v) throws IOException {
         TreeItem<FTPFile> root;
         if (v) {
