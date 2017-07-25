@@ -134,7 +134,7 @@ public class NavegadorController implements Initializable {
         Tree.setEditable(true);
         if (files != null && files.length > 0) {
             files[0].setRawListing(FTPFactory.getInstance().getFTP().getPassiveHost());
-            treeRoot = getNodesForDirectory(files[0], true);
+            treeRoot = CarregarFiles(files[0], true);
         } else {
             FTPFile file = new FTPFile();
             file.setType(FTPFile.DIRECTORY_TYPE);
@@ -250,7 +250,6 @@ public class NavegadorController implements Initializable {
         btnEditar.setOnAction(e -> {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             String novolink = "";
-            if (selected.getParent().getValue() != null) {
                 try {
                     FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
                     novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
@@ -259,30 +258,19 @@ public class NavegadorController implements Initializable {
                 }
                 try {
                     String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
-
                     if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
                         novolink = novolink + separador + novoNome;
                         selected.getValue().setRawListing(novoNome);
                         selected.getValue().setLink(novolink);
-
-                        recursivao(selected);
-
-                        JOptionPane.showMessageDialog(null, "Arquivo Modificado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
-
+                        RenameRecursivao(selected);
+                        JOptionPane.showMessageDialog(null, " Renomeado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
                         Tree.refresh();
                     } else {
                         JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
-
                     }
-
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Arquivo não pode ter filho ", "Erro", JOptionPane.WARNING_MESSAGE);
-            }
-
         });
 
         btnEditar.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
@@ -293,7 +281,7 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             int reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esse arquivo ?", "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                if (lol(selected)) {
+                if (DeletarRecursivo(selected)) {
                     selected.getParent().getChildren().remove(selected);
                     if (selected.getValue().isDirectory()) {
                         JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
@@ -318,7 +306,6 @@ public class NavegadorController implements Initializable {
             try {
                 TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-                System.out.println(limiteNivel());
                 if (limiteNivel() <= 5) {
                     if (limitePasta()) {
                         if (selected == null) {
@@ -336,7 +323,6 @@ public class NavegadorController implements Initializable {
 
                         if (selected.getValue().isDirectory()) {
                             f.setLink(selected.getValue().getLink() + separador + text);
-                            System.out.println("Link: " + f.getLink());
                             if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
                                 selected.getChildren().add(newItem);
                                 Tree.getSelectionModel().select(newItem);
@@ -346,7 +332,6 @@ public class NavegadorController implements Initializable {
                         } else {
                             if (selected.getParent().getValue() != null) {
                                 f.setLink(selected.getParent().getValue().getLink() + separador + text);
-                                System.out.println("Link: " + f.getLink());
                                 if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
                                     selected.getParent().getChildren().add(newItem);
                                     Tree.getSelectionModel().select(newItem);
@@ -374,46 +359,39 @@ public class NavegadorController implements Initializable {
 
     }
 
-    public boolean lol(TreeItem<FTPFile> a) {
+    public boolean DeletarRecursivo(TreeItem<FTPFile> a) {
         boolean flag = false;
 
         if (a.getChildren().isEmpty()) {
-            System.out.println("Filho Vazio: " + a.getValue().getLink());
-            System.out.println(a.getValue().getLink());
             if (FTPFactory.getInstance().Excluir(a.getValue())) {
-                System.out.println(a.getValue().getLink());
-
+                return true;
             }
         } else {
-
             for (TreeItem<FTPFile> iterator: a.getChildren()){
-                System.out.println("Filho : "+ a.getValue().getLink());
-                    lol(iterator);
+                DeletarRecursivo(iterator);
             }
-
             if (FTPFactory.getInstance().Excluir(a.getValue())) {
-                System.out.println(a.getValue().getLink());
-
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
 
-    public void recursivao(TreeItem<FTPFile> a) {
+    public void RenameRecursivao(TreeItem<FTPFile> a) {
         String novolink;
         for (Iterator<TreeItem<FTPFile>> iterator = a.getChildren().iterator(); iterator.hasNext(); ) {
             TreeItem<FTPFile> c = iterator.next();
             novolink = a.getValue().getLink() + separador + c.getValue().getName();
             c.getValue().setLink(novolink);
             if (!c.getChildren().isEmpty()) {
-                recursivao(c);
+                RenameRecursivao(c);
             }
 
         }
     }
 
-    public TreeItem<FTPFile> getNodesForDirectory(FTPFile directory, boolean v) throws IOException {
+    public TreeItem<FTPFile> CarregarFiles(FTPFile directory, boolean v) throws IOException {
         TreeItem<FTPFile> root;
 
         if (v) {
@@ -431,8 +409,7 @@ public class NavegadorController implements Initializable {
             if (f.isDirectory()) {
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(f.getName());
                 f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
-                System.out.println(f.getLink());
-                root.getChildren().add(getNodesForDirectory(f, false));
+                root.getChildren().add(CarregarFiles(f, false));
             } else {
                 f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory() + separador + f.getName());
                 root.getChildren().add(new TreeItem<FTPFile>(f, new ImageView(this.arquivo)));
