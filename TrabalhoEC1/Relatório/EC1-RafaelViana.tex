@@ -14,7 +14,10 @@
 \definecolor{jpurple}{rgb}{0.5,0,0.35}
 % Configurando layout para mostrar codigos Java
 \usepackage{listings}
-\bibliographystyle{plain}% Escolha um estilo bibliográfico
+
+
+\bibliographystyle{ieeetr}
+
 
 \lstset{
 	language=Java,
@@ -40,7 +43,7 @@
 \sloppy
 	\title{Sistema Cliente Para Conexão FTP  \\ Exercício Computacional I - Redes de Computadores}
 
-\author{Rafael Gonçalves de Oliveria Vianal\inst{1} }
+\author{Rafael Gonçalves de Oliveria Viana\inst{1} }
 
 
 \address{Sistemas de Informação -- Universidade Federal do Mato Grosso do Sul
@@ -60,22 +63,23 @@
 
 
 \section{JavaFX}
+
 Foi escolhido o JavaFX para criar uma interface gráfica onde o usuário terá um melhor desempenho, ao utilizar o sistema.\cite{topley2010javafx}
 
-Para criar um sistema elegante foi utilizado uma biblioteca com novos elementos CSS, a bibliteca utilizada para essa finalidade foi  a \textbf{JFoenix}, JFoenix é uma biblioteca java de código aberto, que implementa o Google Material Design usando componentes java.\cite{JFoenix}
+Para criar um sistema elegante foi utilizada uma biblioteca com novos elementos CSS, a biblioteca utilizada para essa finalidade foi  a \textbf{JFoenix}, esta é uma biblioteca java de código aberto, que implementa o Google Material Design usando componentes java.\cite{JFoenix}
 
-Para icones foi utilizado a biblioteca fontawesomefx-8.9 essa biblioteca é open source.\cite{FontAwesomeFX}
+Para icones foi utilizada a biblioteca fontawesomefx-8.9, open source.\cite{FontAwesomeFX}
 	
 \section{Apache Commons Net 3.6} 
 
-Para melhor desempenho nas conexões ftp, foi utilizada a biblioteca de conexão FTP da Apache Commons, onde a mesma se encontra atualmente na versão 3.6.\cite{Apache}
+Para melhor desempenho nas conexões FTP, foi utilizada a biblioteca de conexão FTPClient da Apache Commons, onde a mesma se encontra atualmente na versão 3.6.\cite{Apache}
 
 \section{VSFTPD}
-Para realização de testes de desenvolvimento foi utilizado o vsftpd como servidor FTP, assim agilizando a produção do software cliente.
-O vsftpd é um servidor de FTP licenciado pela GPL para sistemas UNIX, incluindo o Linux. É seguro e extremamente rápido.\cite{bauer2004paranoid}
+Para realização de testes de desenvolvimento foi utilizado o VSFTPD como servidor FTP, assim agilizando a produção do software cliente.
+O VSFTPD é um servidor de FTP licenciado pela GPL para sistemas UNIX, incluindo o Linux. É seguro e extremamente rápido.\cite{bauer2004paranoid}
 
-\section{Problematica}
-O trabalho proposto tem como objetivo criar um cliente FTP, no qual tenha como Adicionar, Renomear, realizar Download e Upload de arquivos e pastas. Tendo como restrição o sistema deve apenas deixar criar 5 pastas e 2 arquivos por diretório, sendo que no máximo deve ser criados 3 níveis de diretórios.
+\section{Problemática}
+O trabalho proposto tem como objetivo criar um cliente FTP, no qual tenha como Adicionar, Renomear, realizar Download e Upload de arquivos e pastas. Tendo como restrição, o sistema deve permitir apenas a criação de 5 pastas e 2 arquivos por diretório, sendo que no máximo deve ser criados 3 níveis de diretórios.
  
 A implementação de restrições no software cliente e não no software servidor, coloca a aplicação em risco, um usuário mal intencionado poderia utilizar outro software cliente para acessar os serviços do software servidor, já que o mesmo não possui restrições, assim o usuário mal intencionado passaria a ter privilégios.\cite{rocha2001qualidade}
 
@@ -83,13 +87,13 @@ Assim podemos observar uma falha na segurança dessas restrições, porém como 
 
 
 \section{Metodologia}
-Como a aplicação é pequena a estrutura da mesma, foi dividida em 3 pacotes sendo eles: Cliente, Icons e Socket, mostradas na Figura \ref{fig:01}
+Como a ap1licação é pequena a estrutura da mesma, foi dividida em 3 pacotes sendo eles: Cliente, Icons e Socket, mostradas na Figura \ref{fig:01}.
 
 \begin{enumerate}
 	
-\item{A pasta cliente é responsável pela parte de Interface Gráfica do Usuário, envolvendo controles e Views.}
-\item{A pasta Icons armazena icons utilizados na pasta cliente.}
-\item{A pasta socket e responsável por toda comunicação da Lib da Apache com os controles do cliente.}
+\item{O pacote cliente é responsável pela interface gráfica do usuário, onde estão os controles e views.}
+\item{O pacote icons armazena ícones utilizados no pacote cliente.}
+\item{O pacote socket e responsável por toda comunicação da biblioteca Apache Commons Net 3.6 com os controles do pacote cliente.}
 
 \end{enumerate}
 
@@ -101,7 +105,7 @@ Como a aplicação é pequena a estrutura da mesma, foi dividida em 3 pacotes se
 \end{figure}
 
 
-Primeiramente a classe Main e invocada, chamando a Scene do Login.fxml, o controle do login e responsável por fornecer o necessá	rio para o FTPClient poder fazer a conexão.
+Primeiramente, a classe Main é invocada, chamando a Scene do Login.fxml, o controle do login é responsável por fornecer o necessário para o FTPClient fazer a conexão.
 
 \begin{lstlisting}
 
@@ -132,7 +136,7 @@ public static void main(String[] args) {
 	\label{fig:02}
 \end{figure}
 
-Com a tela de login aberta o usuário entra com as informações login , senha, endereço do host, port do host mostrado no código abaixo e na Figura \ref{fig:02} .
+Com a tela de login aberta o usuário entra com as informações login, senha, endereço do host, port do host mostrado no código abaixo e na Figura \ref{fig:02} .
 \vspace{.4cm}
 \begin{lstlisting}
 private void login(ActionEvent event) {
@@ -186,7 +190,7 @@ private void completeLogin() throws IOException {
 \end{lstlisting}
 
 
-Para poder realizar a comunicação entre as classes e o FTPClient da apache, foi criado uma classe Singleton chamada de FTPFactory onde a mesma cria uma getInstance de FTPClient, podendo ser chamada de qualquer classe sem ter que ser instanciada novamente, o que irá ocasionar a perda da conexão FTP.
+Para realizar a comunicação entre as classes e o FTPClient da apache, criou-se uma classe Singleton chamada de FTPFactory onde a mesma utiliza uma getInstance de FTPClient, que pode ser chamada de qualquer classe, sem ter que ser instanciada novamente, o que irá ocasionar a perda da conexão FTP.
 
 \begin{lstlisting}
 
@@ -267,7 +271,7 @@ public class FTPFactory {
 
 \end{lstlisting}
 
-Após a classe login em conjunto com a classe FTPFactor, validar os dados de usuário a tela de navegação e aberta, essa tela nada mais é do que um conjunto de botões em uma Grid a esquerda um ToolBar no top e um TreeView do JavaFX no centro para poder navegar pela estutura dos diretórios.
+Após a classe login em conjunto com a classe FTPFactory, validar os dados de usuário a tela de navegação é aberta, essa tela nada mais é do que um conjunto de botões em uma Grid à esquerda um ToolBar no top e um TreeView do JavaFX no centro para poder navegar pela estutura dos diretórios.
 
 \begin{figure}[H]
 	\centering
@@ -277,25 +281,25 @@ Após a classe login em conjunto com a classe FTPFactor, validar os dados de usu
 \end{figure}
 
 
-Toda lógica de abastecimento da TreeView e a criação dos TreeItem utilizados na TreeView estão na classe NavegadorController, onde inicia a criação dos TreeItem de toda a estrutura da arvore como ADICIONAR PASTA, REMOVER, LISTAR, EDITAR, DOWNLOAD e UPLOAD de arquivos/pastas, o método CarregarFiles(), cria recursivamente Nodes/TreeItem apartir dos files no servidor FTP, posteriormente encadeando-os TreeItems e lançando-os na TreeView, facilitando assim a navegação.
+Toda lógica de abastecimento da TreeView e a criação dos TreeItem utilizados na TreeView estão no método Navegacao(), pertencente a classe NavegadorController, o mesmo chama o método CarregarFiles(), que tem a obrigação de criar recursivamente a partir dos arquivos que estão no servidor FTP, os TreeItem<FTPFile> que são encadeando-os e lançandos na TreeView, facilitando assim a navegação pelos diretórios.
 
-Para melhor leitura os métodos implementados pelos botões foram removidos, porém podem ser veficados na classe NavegadorController no código fonte. As funções que os mesmo exercem são com base nos comando implementados no FTPClient da Apache sendo eles:
+Para melhor leitura os métodos implementados pelos botões foram removidos, porém podem ser veficados na classe NavegadorController no código fonte. As funções que os mesmo exercem são com base nos comandos implementados no FTPClient da Apache sendo estes:
 \begin{enumerate}
-\item {Cria Pasta} makeDirectory(String caminho)	
+\item {Criar Pasta} makeDirectory(String caminho)	
 	
 Este método exige um caminho do diretório remoto para criar uma pasta no mesmo.  
 	
-\item {Cria Arquivo} makeDirectory()	
+\item {Criar Arquivo} makeDirectory()	
 	
 Este método exige um caminho do diretório remoto para criar um arquivo no mesmo.
 
 \item {Upload Arquivo } storeFile(String caminho, InputStream local)	
 
-Este método exige um caminho do diretório remoto e um InputStream local a partir do qual quer lêr o arquivo desejado.
+Este método exige um caminho do diretório remoto e um InputStream local, que indique o arquivo desejado.
 
 \item {Download } retrieveFile(String caminho, OutputStream local)	
 
-Este método exige um caminho do diretório remoto que tenha o arquivo e OutputStream para o local de destino do arquiva.
+Este método exige um caminho do diretório remoto que tenha o arquivo e OutputStream para o local de destino do arquivo.
 
 \item {Editar} rename(String nomeAtual, String novoNome)	
 
@@ -303,7 +307,7 @@ Este método exige o nome do diretório remoto que deseja alterar e o novo nome 
 
 \item {Excluir} removeDirectory(String diretorioRemoto) ou  deleteFileString(String arquivoRemoto) 
 
-Para excluir foi utilizado dois métodos um para deletar as pastas removeDirectory(String caminhoRemoto) e outro para arquivos deleteFileString(String caminhoRemoto).
+Para excluir foram utilizados dois métodos, um para deletar as pastas removeDirectory(String caminhoRemoto) e outro para arquivos deleteFileString(String caminhoRemoto).
 
 \end{enumerate}
 
@@ -328,7 +332,7 @@ private void Navegacao() throws IOException {
 	Tree.getSelectionModel().select(treeRoot);	
 	Tree.setRoot(treeRoot);
 	
-	//Os Botões ADD,RENAME,DELETE,UPLOAD e DOWNLOAD estão nessa classe, foi retirada para um melhor o entendimento.
+	//Os Botões ADD,RENAME,DELETE,UPLOAD e DOWNLOAD estão nessa classe, foram retirados para um melhor entendimento do código.
 
 }
 
@@ -363,9 +367,9 @@ public TreeItem<FTPFile> CarregarFiles(FTPFile directory, boolean v) throws IOEx
 
 \end{lstlisting}
 
-Um dos objetivos do trabalho é limitar o cliente FTP, fazendo com que usuários que utilizar o sistema só poderam criar 5 pastas e 2 arquivos por diretório, sendo que poderá criar no máximo 3 níveis de diretórios.
+Um dos objetivos do trabalho é limitar o cliente FTP, fazendo com que usuários que utilizam o sistema possam criar 5 pastas e 2 arquivos por diretório, sendo que poderão criar no máximo 3 níveis de diretórios.
 
-A classe Limitador do pacote socket e responsável por fazer a armazenagem da quantidade máxima de pastas e arquivos. Sendo utilizada na classe NavegadorController do pacote cliente, em conjunto dos métodos limiteArquivo(), limitePasta()  e limiteNivel().
+A classe Limitador do pacote socket é responsável por fazer a armazenagem da quantidade máxima de pastas e arquivos. Sendo utilizada na classe NavegadorController do pacote cliente, em conjunto dos métodos limiteArquivo(), limitePasta()  e limiteNivel().
  
  \begin{lstlisting}
 public class Limitador {
@@ -388,7 +392,7 @@ public class Limitador {
 
 }
 
-// Os métodos abaixo pertencem classe NavegadorControoler
+// Os métodos abaixo pertencem a classe NavegadorControoler
 
 private boolean limiteArquivo() throws IOException {
 	int num = FTPFactory.getInstance().getFTP().listDirectories().length;
@@ -408,7 +412,7 @@ private int limiteNivel() throws IOException {
 
 
 \end{lstlisting}
-	Para deletar uma pasta deve-se utilizar o método removeDirectory(Caminho), ou para deletar um arquivo utiliza-se o método deleteFile(Caminho) do FTPClient Apache. Porém para deletar uma pasta que contém N sub pastas deve-se percorrer recursivamente as pastas, até a folha mais baixa e vim apagando debaixo para cima cada pasta ou arquivo de cada pasta recursivamente pelo método DeletarRecursivo(TreeItem), implementado na classe NavegadorController.  
+	Para deletar uma pasta deve-se utilizar o método removeDirectory(Caminho), ou para deletar um arquivo utiliza-se o método deleteFile(Caminho) do FTPClient Apache. Porém para deletar uma pasta que contém N sub pastas deve-se percorrer recursivamente as pastas, até a folha mais baixa e seguir apagando debaixo para cima cada pasta ou arquivo, recursivamente pelo método DeletarRecursivo(TreeItem), implementado na classe NavegadorController.  
 \begin{lstlisting}
 
 public boolean DeletarRecursivo(TreeItem<FTPFile> a) {
@@ -431,7 +435,7 @@ public boolean DeletarRecursivo(TreeItem<FTPFile> a) {
 	return false;
 }
 \end{lstlisting}
-	Após a renomeação de um TreeItem<FTPFile> da TreeViw, é foi preciso modificar recursivamente os TreeItem<FTPFile> filhos, pelo método RenameRecursivao(TreeItem<FTPFile> a), esse método notifica os filhos mundando assim o link dos mesmos.
+	Após a renomeação de um TreeItem<FTPFile> da TreeViw, foi preciso modificar recursivamente os TreeItem<FTPFile> filhos, pelo método RenameRecursivao(TreeItem<FTPFile> a), esse método notifica os filhos mundando assim o link dos mesmos.
 \begin{lstlisting}
 public void RenameRecursivao(TreeItem<FTPFile> a) {
 	String novolink;

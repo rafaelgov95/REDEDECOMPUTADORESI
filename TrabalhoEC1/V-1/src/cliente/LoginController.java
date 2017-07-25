@@ -6,6 +6,7 @@
 package cliente;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -70,6 +71,9 @@ public class LoginController implements Initializable {
         btnLogin.setVisible(false);
         imgProgress.setVisible(true);
 
+        JFXDialog dialog = new JFXDialog();
+        dialog.setContent(new Label("Content"));
+
         PauseTransition pauseTransition = new PauseTransition();
         pauseTransition.setDuration(Duration.seconds(3));
         pauseTransition.setOnFinished(ev -> {
@@ -86,7 +90,7 @@ public class LoginController implements Initializable {
                     JOptionPane.showMessageDialog(null,"Erro Senha ou Usuário incorreto !!", "Erro ao Logar",JOptionPane.ERROR_MESSAGE);
 
                 }
-//
+
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {

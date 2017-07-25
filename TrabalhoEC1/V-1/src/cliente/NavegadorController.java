@@ -268,7 +268,7 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             if (selected.getValue().isFile()) {
                 JFileChooser local = new JFileChooser();
-                local.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                local.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 local.setDialogTitle("Escolha um local para salvar");
                 local.setFileHidingEnabled(false);
                 int res = local.showSaveDialog(null);
