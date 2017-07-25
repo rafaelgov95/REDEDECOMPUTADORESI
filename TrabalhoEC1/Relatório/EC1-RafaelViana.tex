@@ -74,13 +74,13 @@ Assim podemos observar uma falha na segurança dessas restrições, porém como 
 
 
 \section{Metodologia}
-Como a aplicação é pequena a estrutura da mesma, foi dividida em 3 pacotes sendo eles: Cliente, Icons e Socket.
+Como a aplicação é pequena a estrutura da mesma, foi dividida em 3 pacotes sendo eles: Cliente, Icons e Socket, mostradas na Figura \ref{fig:01}
 
 \begin{enumerate}
 	
-\item{A pasta cliente é responsável pela parte de Interface Gráfica do Usuário, envolvendo controllers.}
+\item{A pasta cliente é responsável pela parte de Interface Gráfica do Usuário, envolvendo controles e Views.}
 \item{A pasta Icons armazena icons utilizados na pasta cliente.}
-\item{A pasta socket e responsável por toda comunicação da Lib da Apache com os controllers do cliente.}
+\item{A pasta socket e responsável por toda comunicação da Lib da Apache com os controles do cliente.}
 
 \end{enumerate}
 
@@ -120,13 +120,14 @@ public static void main(String[] args) {
 	\centering
 	\includegraphics[width=.9\textwidth]{Imagens/01.png}
 	\caption{ Imagem da Tela de Login.}
-	\label{fig:01}
+	\label{fig:02}
 \end{figure}
 
-Com a tela de login aberta o usuário entra com as informações login , senha, endereço do host, port do host mostrado no código abaixo.
+Com a tela de login aberta o usuário entra com as informações login , senha, endereço do host, port do host mostrado no código abaixo e na Figura \ref{fig:02} .
 \vspace{.4cm}
 \begin{lstlisting}
 private void login(ActionEvent event) {
+
 	btnLogin.setVisible(false);
 	imgProgress.setVisible(true);
 	
@@ -136,26 +137,26 @@ private void login(ActionEvent event) {
 
 try {
 	
-	int reply = FTPFactory.getInstance().FTPConecta(txtHostName.getText(),Integer.parseInt(txtHostPort.getText()),this.txtUsername.getText(),this.txtPassword.getText());
-	System.out.println("Igual:" + reply);
-	
-	if (reply == 230) {
-	
-		btnLogin.getScene().getWindow().hide();
-		completeLogin();
-	
-	} else {
-	
-		imgProgress.setVisible(false);
-		btnLogin.setVisible(true);
-		JOptionPane.showMessageDialog(null,"Erro Senha ou Usuário incorreto !!", "Erro ao Logar",JOptionPane.ERROR_MESSAGE);
-	}
+		int reply = FTPFactory.getInstance().FTPConecta(txtHostName.getText(),Integer.parseInt(txtHostPort.getText()),this.txtUsername.getText(),this.txtPassword.getText());
+		System.out.println("Igual:" + reply);
+		
+		if (reply == 230) {
+		
+			btnLogin.getScene().getWindow().hide();
+			completeLogin();
+		
+		} else {
+		
+			imgProgress.setVisible(false);
+			btnLogin.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Erro Senha ou Usuário incorreto !!", "Erro ao Logar",JOptionPane.ERROR_MESSAGE);
+		}
 
-} catch (IOException ex) {
-	Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-} catch (Exception ex) {
-	Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-}
+	} catch (IOException ex) {
+		Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (Exception ex) {
+		Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
 });
   pauseTransition.play();
@@ -176,7 +177,7 @@ private void completeLogin() throws IOException {
 \end{lstlisting}
 
 
-Para poder realizar a comunicação entre as classes e o FTPClient da apache, foi criado uma classe singleton chamada de FTPFactory onde a mesma cria uma getInstance de FTPClient, podendo ser chamada de qualquer classe sem ter que que ser instanciada novamente, oque iria ocasionar a perda da conexão FTP.
+Para poder realizar a comunicação entre as classes e o FTPClient da apache, foi criado uma classe Singleton chamada de FTPFactory onde a mesma cria uma getInstance de FTPClient, podendo ser chamada de qualquer classe sem ter que ser instanciada novamente, o que irá ocasionar a perda da conexão FTP.
 
 \begin{lstlisting}
 
@@ -198,6 +199,7 @@ public class FTPFactory {
 	/**
 	* Classe privada que armazena a única instância de FTPFactory.
 	*/
+	
 	private static class FTPFactoryHolder {
 	
 		private static final FTPFactory INSTANCE = new FTPFactory();
@@ -262,7 +264,7 @@ Após a Class login em conjunto com a Class FTPFactor, validar os dados de usuá
 	\centering
 	\includegraphics[width=0.8\textwidth]{Imagens/02.png}
 	\caption{ Imagem da Tela de Navegação.}
-	\label{fig:01}
+	\label{fig:03}
 \end{figure}
 
 
@@ -285,255 +287,43 @@ private void Navegacao() throws IOException {
 		file.setRawListing(FTPFactory.getInstance().getFTP().getPassiveHost());
 		treeRoot = new TreeItem<>(file, new ImageView(computador));
 	}
-Tree.getSelectionModel().select(treeRoot);
-Tree.setRoot(treeRoot);
-
-
-btnBaixar.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
-.or(Tree.getSelectionModel().selectedItemProperty().isEqualTo(treeRoot)));
-
-
-btnBaixar.setOnAction(e -> {
-TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-if (selected.getValue().isFile()) {
-JFileChooser local = new JFileChooser();
-local.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-local.setDialogTitle("Escolha um local para salvar");
-local.setFileHidingEnabled(false);
-int res = local.showSaveDialog(null);
-if (res == JFileChooser.APPROVE_OPTION) {
-String caminho = String.valueOf(local.getSelectedFile());
-try {
-FileOutputStream fos = new FileOutputStream(caminho);
-if (FTPFactory.getInstance().getFTP().retrieveFile(selected.getValue().getLink(), fos)) {
-JOptionPane.showMessageDialog(null, "Arquivo Baixado com Sucesso!" + "\n\n",
-"Sucesso", JOptionPane.INFORMATION_MESSAGE);
-}
-
-} catch (FileNotFoundException e1) {
-e1.printStackTrace();
-} catch (Exception ex) {
-JOptionPane.showMessageDialog(null, "Erro ao Baixado  Arquivo : " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-}
-}
-} else {
-JOptionPane.showMessageDialog(null, "Somente Arquivos!" + "\n\n",
-"Erro", JOptionPane.ERROR_MESSAGE);
-}
-});
-
-
-btnUp.setOnAction(e -> {
-TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-try {
-FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-
-if (limiteNivel() <= 5) {
-if (limiteArquivo()) {
-JFileChooser fc = new JFileChooser();
-fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-int result = fc.showOpenDialog(null);
-if (result == JFileChooser.APPROVE_OPTION) {
-File arquivo = fc.getSelectedFile();
-InputStream isArquivo = null;
-try {
-isArquivo = new FileInputStream(arquivo.getAbsolutePath());
-} catch (FileNotFoundException e1) {
-e1.printStackTrace();
-}
-try {
-FTPFile f = new FTPFile();
-
-if (selected.getValue().isDirectory()) {
-FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-f.setLink(selected.getValue().getLink() + separador + arquivo.getName());
-} else {
-FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
-f.setLink(selected.getParent().getValue().getLink() + separador + arquivo.getName());
-}
-
-if (FTPFactory.getInstance().getFTP().storeFile(arquivo.getName(), isArquivo)) {
-
-f.setName(arquivo.getName());
-f.setRawListing(arquivo.getName());
-f.setType(FTPFile.FILE_TYPE);
-TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(this.arquivo));
-if (selected.getValue().isDirectory()) {
-selected.getChildren().add(newItem);
-} else {
-selected.getParent().getChildren().add(newItem);
-}
-
-JOptionPane.showMessageDialog(null, "Arquivo Enviado!");
-} else {
-JOptionPane.showMessageDialog(null, "Arquivo não enviado!");
-}
-
-
-} catch (IOException e1) {
-e1.printStackTrace();
-}
-
-} else {
-JOptionPane.showMessageDialog(null, "Arquivo não selecionado!");
-}
-} else {
-JOptionPane.showMessageDialog(null, "Apenas 2 arquivos por pasta", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
-}
-} else {
-JOptionPane.showMessageDialog(null, "Apenas 3 níveis de Diretórios", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
-
-}
-} catch (IOException e1) {
-e1.printStackTrace();
-}
-});
-
-
-btnEditar.setOnAction(e -> {
-TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-String novolink = "";
-try {
-FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
-novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
-} catch (IOException e1) {
-e1.printStackTrace();
-}
-try {
-String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
-
-if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
-novolink = novolink + separador + novoNome;
-selected.getValue().setRawListing(novoNome);
-selected.getValue().setLink(novolink);
-
-RenameRecursivao(selected);
-
-JOptionPane.showMessageDialog(null, " Renomeado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
-
-Tree.refresh();
-} else {
-JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
+	
+	Tree.getSelectionModel().select(treeRoot);	
+	Tree.setRoot(treeRoot);
+	
+	//Os Botões ADD,RENAME,DELETE,UPLOAD e DOWNLOAD estão nessa classe, foi retirada para um melhor o entendimento.
 
 }
 
-} catch (IOException e1) {
-e1.printStackTrace();
-}
-});
 
-btnEditar.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
-.or(Tree.getSelectionModel().selectedItemProperty().isEqualTo(treeRoot)));
-
-
-btnExcluir.setOnAction(e -> {
-TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-int reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esse arquivo ?", "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
-if (reply == JOptionPane.YES_OPTION) {
-if (DeletarRecursivo(selected)) {
-selected.getParent().getChildren().remove(selected);
-if (selected.getValue().isDirectory()) {
-JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-} else {
-JOptionPane.showMessageDialog(null, "Arquivo Foi Apagado com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-}
-} else {
-JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir !.", "Exclusão", JOptionPane.WARNING_MESSAGE);
-
-}
-}
-
-});
-
-btnExcluir.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
-.or(Tree.getSelectionModel().selectedItemProperty().isEqualTo(treeRoot)));
-
-TextField textField = new TextField();
-
-
-EventHandler<ActionEvent> addAction = e -> {
-try {
-TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-if (limiteNivel() <= 5) {
-if (limitePasta()) {
-if (selected == null) {
-selected = treeRoot;
-}
-String text = JOptionPane.showInputDialog("Nome da Pasta");
-if (text.isEmpty()) {
-text = "NovaPasta";
-}
-FTPFile f = new FTPFile();
-f.setType(FTPFile.DIRECTORY_TYPE);
-f.setRawListing(text);
-f.setName(text);
-TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(pasta));
-
-if (selected.getValue().isDirectory()) {
-f.setLink(selected.getValue().getLink() + separador + text);
-if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
-selected.getChildren().add(newItem);
-Tree.getSelectionModel().select(newItem);
-} else {
-JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
-}
-} else {
-if (selected.getParent().getValue() != null) {
-f.setLink(selected.getParent().getValue().getLink() + separador + text);
-if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
-selected.getParent().getChildren().add(newItem);
-Tree.getSelectionModel().select(newItem);
-} else {
-JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
-}
-}
-
-}
-
-} else {
-JOptionPane.showMessageDialog(null, "Apenas 5 pastas por Diretório", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
-
-}
-} else {
-JOptionPane.showMessageDialog(null, "Apenas 3 níveis de Diretórios", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
-
-}
-} catch (IOException e1) {
-e1.printStackTrace();
-}
-};
-textField.setOnAction(addAction);
-btnAdd.setOnAction(addAction);
-
-}
 public TreeItem<FTPFile> CarregarFiles(FTPFile directory, boolean v) throws IOException {
-TreeItem<FTPFile> root;
+	
+	TreeItem<FTPFile> root;
 
-if (v) {
-directory.setType(FTPFile.DIRECTORY_TYPE);
-directory.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
-root = new TreeItem<FTPFile>(directory, new ImageView(computador));
+	if (v) {
+		directory.setType(FTPFile.DIRECTORY_TYPE);
+		directory.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
+		root = new TreeItem<FTPFile>(directory, new ImageView(computador));
+    } else {
+		root = new TreeItem<FTPFile>(directory, new ImageView(pasta));
+	}
+	root.setExpanded(true);
+	FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles();
+	for (FTPFile f : files) {
+		System.out.println("Carregando .. " + f.getName());
+	    if (f.isDirectory()) {
+			FTPFactory.getInstance().getFTP().changeWorkingDirectory(f.getName());
+			f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
+			root.getChildren().add(CarregarFiles(f, false));
+		} else {
+		f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory() + separador + f.getName());
+		root.getChildren().add(new TreeItem<FTPFile>(f, new ImageView(this.arquivo)));
+		}
+	}
+	FTPFactory.getInstance().getFTP().changeToParentDirectory(); 
+	return root;
+}
 
-} else {
-root = new TreeItem<FTPFile>(directory, new ImageView(pasta));
-}
-root.setExpanded(true);
-FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles();
-for (FTPFile f : files) {
-System.out.println("Carregando .. " + f.getName());
-if (f.isDirectory()) {
-FTPFactory.getInstance().getFTP().changeWorkingDirectory(f.getName());
-f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
-root.getChildren().add(CarregarFiles(f, false));
-} else {
-f.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory() + separador + f.getName());
-root.getChildren().add(new TreeItem<FTPFile>(f, new ImageView(this.arquivo)));
-}
-}
-FTPFactory.getInstance().getFTP().changeToParentDirectory();
-return root;
-}
 \end{lstlisting}
 
 Um dos objetivos do trabalho era limitar o cliente FTP, fazendo com que usuários que utilizar o sistema só poderam criar 5 pastas e 2 arquivos por diretório, sendo que poderá criar no máximo 3 níveis de diretórios.
@@ -561,6 +351,8 @@ public class Limitador {
 
 }
 
+// Os métodos abaixo pertencem Class NavegadorControoler
+
 private boolean limiteArquivo() throws IOException {
 	int num = FTPFactory.getInstance().getFTP().listDirectories().length;
 	int numa = FTPFactory.getInstance().getFTP().listFiles().length - num;
@@ -583,37 +375,37 @@ private int limiteNivel() throws IOException {
 	Para renomear um arquivo ou pasta utiliza-se o método rename(caminho,novonome) da Apache. Porém para mudar os links das sub pastas de um diretório  
 \begin{lstlisting}
 
-	public boolean DeletarRecursivo(TreeItem<FTPFile> a) {
+public boolean DeletarRecursivo(TreeItem<FTPFile> a) {
 	boolean flag = false;
 	
 	if (a.getChildren().isEmpty()) {
-	if (FTPFactory.getInstance().Excluir(a.getValue())) {
-	return true;
-	}
-	} else {
-	for (TreeItem<FTPFile> iterator: a.getChildren()){
-	DeletarRecursivo(iterator);
-	}
-	if (FTPFactory.getInstance().Excluir(a.getValue())) {
-	return true;
-	}
+		if (FTPFactory.getInstance().Excluir(a.getValue())) {
+			return true;
+		}
+	}else {
+	
+		for (TreeItem<FTPFile> iterator: a.getChildren()){
+			DeletarRecursivo(iterator);
+		}
+		
+		if (FTPFactory.getInstance().Excluir(a.getValue())) {
+			return true;
+		}
 	}
 	return false;
-	}
-	
-	
-	public void RenameRecursivao(TreeItem<FTPFile> a) {
+}
+
+public void RenameRecursivao(TreeItem<FTPFile> a) {
 	String novolink;
 	for (Iterator<TreeItem<FTPFile>> iterator = a.getChildren().iterator(); iterator.hasNext(); ) {
-	TreeItem<FTPFile> c = iterator.next();
-	novolink = a.getValue().getLink() + separador + c.getValue().getName();
-	c.getValue().setLink(novolink);
-	if (!c.getChildren().isEmpty()) {
-	RenameRecursivao(c);
+		TreeItem<FTPFile> c = iterator.next();
+		novolink = a.getValue().getLink() + separador + c.getValue().getName();
+		c.getValue().setLink(novolink);
+		if (!c.getChildren().isEmpty()) {
+			RenameRecursivao(c);
+		}
 	}
-	
-	}
-	}
+}
 \end{lstlisting}
 
 
