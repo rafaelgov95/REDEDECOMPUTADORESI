@@ -286,23 +286,23 @@ public class NavegadorController implements Initializable {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             int reply;
             if (selected.getValue().isDirectory()) {
-                reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esta Pasta ?\n"+"Nome da Pasta: "+ selected.getValue().getName(), "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
-            }else{
-                reply = JOptionPane.showConfirmDialog(null,"Deseja deletar este Arquivo ?\n"+"Nome do Arquivo: "+ selected.getValue().getName(), "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
+                reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esta Pasta ?\n" + "Nome da Pasta: " + selected.getValue().getName(), "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
+            } else {
+                reply = JOptionPane.showConfirmDialog(null, "Deseja deletar este Arquivo ?\n" + "Nome do Arquivo: " + selected.getValue().getName(), "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
             }
-                if (reply == JOptionPane.YES_OPTION) {
-                    if (DeletarRecursivo(selected)) {
-                        selected.getParent().getChildren().remove(selected);
-                        if (selected.getValue().isDirectory()) {
-                            JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Arquivo Foi Apagado com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-                        }
+            if (reply == JOptionPane.YES_OPTION) {
+                if (DeletarRecursivo(selected)) {
+                    selected.getParent().getChildren().remove(selected);
+                    if (selected.getValue().isDirectory()) {
+                        JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir !.", "Exclusão", JOptionPane.WARNING_MESSAGE);
-
+                        JOptionPane.showMessageDialog(null, "Arquivo Foi Apagado com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir !.", "Exclusão", JOptionPane.WARNING_MESSAGE);
+
                 }
+            }
 
 
         });
@@ -312,8 +312,8 @@ public class NavegadorController implements Initializable {
 
         TextField textField = new TextField();
 
-
-        EventHandler<ActionEvent> addAction = e -> {
+        btnAdd.setOnAction(e -> {
+            String text = JOptionPane.showInputDialog("Nome da Pasta");
             try {
                 TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
                 FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
@@ -322,7 +322,6 @@ public class NavegadorController implements Initializable {
                         if (selected == null) {
                             selected = treeRoot;
                         }
-                        String text = JOptionPane.showInputDialog("Nome da Pasta");
                         if (text.isEmpty()) {
                             text = "NovaPasta";
                         }
@@ -364,10 +363,8 @@ public class NavegadorController implements Initializable {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        };
-        textField.setOnAction(addAction);
-        btnAdd.setOnAction(addAction);
 
+        });
     }
 
     public boolean DeletarRecursivo(TreeItem<FTPFile> a) {

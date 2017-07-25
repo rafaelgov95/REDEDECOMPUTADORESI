@@ -115,7 +115,7 @@
                                     <Font name="Roboto Medium" size="13.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="#757575" glyphName="PLUS_SQUARE" size="16.0" wrappingWidth="40.0" />
+                                    <FontAwesomeIconView fill="#757575" glyphName="FILE_TEXT" size="16.0" wrappingWidth="40.0" />
                                  </graphic>
                               </JFXButton>
                               <JFXButton fx:id="btnUp" prefHeight="36.0" prefWidth="189.0" styleClass="side-buttons" text="Upload" textFill="#757575" GridPane.rowIndex="2">
