@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXToolbar;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.ftp.FTPReply;
 import socket.FTPFactory;
 import socket.Limitador;
 
@@ -147,10 +149,117 @@ public class NavegadorController implements Initializable {
         Tree.setRoot(treeRoot);
 
         btnAddFile.setOnAction(e -> {
-            TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
+            String file = JOptionPane.showInputDialog("Nome do File");
+            if(file!=null){
 
+            try {
+                TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
+                FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
+                if (limiteNivel() <= 5) {
+                    if (limitePasta()) {
+                        if (selected == null) {
+                            selected = treeRoot;
+                        }
+                        if (file.isEmpty()) {
+                            file = "New File";
+                        }
+                        FTPFile f = new FTPFile();
+                        f.setType(FTPFile.DIRECTORY_TYPE);
+                        f.setRawListing(file);
+                        f.setName(file);
+                        f.setType(FTPFile.FILE_TYPE);
+                        TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(arquivo));
+                        OutputStream out;
+                        if (selected.getValue().isDirectory()) {
+                            newItem.getValue().setLink(selected.getValue().getLink() + separador + file);
+                            out = FTPFactory.getInstance().getFTP().storeFileStream(newItem.getValue().getLink());
+                            selected.getChildren().add(newItem);
+
+                        } else {
+                            newItem.getValue().setLink(selected.getParent().getValue().getLink() + separador + file);
+                            out = FTPFactory.getInstance().getFTP().storeFileStream(newItem.getValue().getLink());
+                            selected.getParent().getChildren().add(newItem);
+
+                        }
+                        out.close();
+                        if(!FTPFactory.getInstance().getFTP().completePendingCommand()) {
+                            FTPFactory.getInstance().getFTP().logout();
+                            FTPFactory.getInstance().getFTP().disconnect();
+                            System.err.println("File transfer failed.");
+                            System.exit(1);
+                        }
+
+                        JOptionPane.showMessageDialog(null, "File adicionado com sucesso !!", "File Adicionado", JOptionPane.INFORMATION_MESSAGE);
+                        Tree.getSelectionModel().select(newItem);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Apenas 5 pastas por Diretório", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Apenas 3 níveis de Diretórios", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
+
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            }
         });
 
+        btnAdd.setOnAction(e -> {
+            String text = JOptionPane.showInputDialog("Nome da Pasta");
+            if(text!=null) {
+                try {
+                    TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
+                    FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
+                    if (limiteNivel() <= 5) {
+                        if (limitePasta()) {
+                            if (selected == null) {
+                                selected = treeRoot;
+                            }
+                            if (text.isEmpty()) {
+                                text = "NovaPasta";
+                            }
+                            FTPFile f = new FTPFile();
+                            f.setType(FTPFile.DIRECTORY_TYPE);
+                            f.setRawListing(text);
+                            f.setName(text);
+                            TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(pasta));
+
+                            if (selected.getValue().isDirectory()) {
+                                f.setLink(selected.getValue().getLink() + separador + text);
+                                if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
+                                    selected.getChildren().add(newItem);
+                                    Tree.getSelectionModel().select(newItem);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
+                                }
+                            } else {
+                                if (selected.getParent().getValue() != null) {
+                                    f.setLink(selected.getParent().getValue().getLink() + separador + text);
+                                    if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
+                                        selected.getParent().getChildren().add(newItem);
+                                        Tree.getSelectionModel().select(newItem);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
+                                    }
+                                }
+
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Apenas 5 pastas por Diretório", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
+
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Apenas 3 níveis de Diretórios", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
+
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
         btnBaixar.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
                 .or(Tree.getSelectionModel().selectedItemProperty().isEqualTo(treeRoot)));
 
@@ -312,59 +421,7 @@ public class NavegadorController implements Initializable {
 
         TextField textField = new TextField();
 
-        btnAdd.setOnAction(e -> {
-            String text = JOptionPane.showInputDialog("Nome da Pasta");
-            try {
-                TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-                FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getValue().getLink());
-                if (limiteNivel() <= 5) {
-                    if (limitePasta()) {
-                        if (selected == null) {
-                            selected = treeRoot;
-                        }
-                        if (text.isEmpty()) {
-                            text = "NovaPasta";
-                        }
-                        FTPFile f = new FTPFile();
-                        f.setType(FTPFile.DIRECTORY_TYPE);
-                        f.setRawListing(text);
-                        f.setName(text);
-                        TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(pasta));
 
-                        if (selected.getValue().isDirectory()) {
-                            f.setLink(selected.getValue().getLink() + separador + text);
-                            if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
-                                selected.getChildren().add(newItem);
-                                Tree.getSelectionModel().select(newItem);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
-                            }
-                        } else {
-                            if (selected.getParent().getValue() != null) {
-                                f.setLink(selected.getParent().getValue().getLink() + separador + text);
-                                if (FTPFactory.getInstance().getFTP().makeDirectory(f.getLink())) {
-                                    selected.getParent().getChildren().add(newItem);
-                                    Tree.getSelectionModel().select(newItem);
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Erro pasta nao pode ser criado com esse nome.", "Diretório Existente", JOptionPane.WARNING_MESSAGE);
-                                }
-                            }
-
-                        }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Apenas 5 pastas por Diretório", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
-
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Apenas 3 níveis de Diretórios", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
-
-                }
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-        });
     }
 
     public boolean DeletarRecursivo(TreeItem<FTPFile> a) {
@@ -405,10 +462,10 @@ public class NavegadorController implements Initializable {
         if (v) {
             directory.setType(FTPFile.DIRECTORY_TYPE);
             directory.setLink(FTPFactory.getInstance().getFTP().printWorkingDirectory());
-            root = new TreeItem<FTPFile>(directory, new ImageView(computador));
+            root = new TreeItem<>(directory, new ImageView(computador));
 
         } else {
-            root = new TreeItem<FTPFile>(directory, new ImageView(pasta));
+            root = new TreeItem<>(directory, new ImageView(pasta));
         }
         root.setExpanded(true);
         FTPFile[] files = FTPFactory.getInstance().getFTP().listFiles();
