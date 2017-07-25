@@ -63,7 +63,8 @@ public class NavegadorController implements Initializable {
     private JFXButton btnUp;
     @FXML
     private JFXButton btnBaixar;
-
+    @FXML
+    private JFXButton btnAddFile;
     private AnchorPane nav;
 
     @FXML
@@ -145,6 +146,10 @@ public class NavegadorController implements Initializable {
         Tree.getSelectionModel().select(treeRoot);
         Tree.setRoot(treeRoot);
 
+        btnAddFile.setOnAction(e -> {
+            TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
+
+        });
 
         btnBaixar.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
                 .or(Tree.getSelectionModel().selectedItemProperty().isEqualTo(treeRoot)));
@@ -250,27 +255,27 @@ public class NavegadorController implements Initializable {
         btnEditar.setOnAction(e -> {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
             String novolink = "";
-                try {
-                    FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
-                    novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+            try {
+                FTPFactory.getInstance().getFTP().changeWorkingDirectory(selected.getParent().getValue().getLink());
+                novolink = FTPFactory.getInstance().getFTP().printWorkingDirectory();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
+                if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
+                    novolink = novolink + separador + novoNome;
+                    selected.getValue().setRawListing(novoNome);
+                    selected.getValue().setLink(novolink);
+                    RenameRecursivao(selected);
+                    JOptionPane.showMessageDialog(null, " Renomeado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
+                    Tree.refresh();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
                 }
-                try {
-                    String novoNome = JOptionPane.showInputDialog("Digite um novo nome para " + selected.getValue().getName());
-                    if (FTPFactory.getInstance().getFTP().rename(selected.getValue().getName(), novoNome)) {
-                        novolink = novolink + separador + novoNome;
-                        selected.getValue().setRawListing(novoNome);
-                        selected.getValue().setLink(novolink);
-                        RenameRecursivao(selected);
-                        JOptionPane.showMessageDialog(null, " Renomeado ! ", "Rename", JOptionPane.INFORMATION_MESSAGE);
-                        Tree.refresh();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Erro ao Renomear! ", "Erro Rename", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
 
         btnEditar.disableProperty().bind(Tree.getSelectionModel().selectedItemProperty().isNull()
@@ -279,20 +284,26 @@ public class NavegadorController implements Initializable {
 
         btnExcluir.setOnAction(e -> {
             TreeItem<FTPFile> selected = Tree.getSelectionModel().getSelectedItem();
-            int reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esse arquivo ?", "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
-            if (reply == JOptionPane.YES_OPTION) {
-                if (DeletarRecursivo(selected)) {
-                    selected.getParent().getChildren().remove(selected);
-                    if (selected.getValue().isDirectory()) {
-                        JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Arquivo Foi Apagado com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir !.", "Exclusão", JOptionPane.WARNING_MESSAGE);
-
-                }
+            int reply;
+            if (selected.getValue().isDirectory()) {
+                reply = JOptionPane.showConfirmDialog(null, "Deseja deletar esta Pasta ?\n"+"Nome da Pasta: "+ selected.getValue().getName(), "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
+            }else{
+                reply = JOptionPane.showConfirmDialog(null,"Deseja deletar este Arquivo ?\n"+"Nome do Arquivo: "+ selected.getValue().getName(), "Confirma Exclusão", JOptionPane.YES_NO_OPTION);
             }
+                if (reply == JOptionPane.YES_OPTION) {
+                    if (DeletarRecursivo(selected)) {
+                        selected.getParent().getChildren().remove(selected);
+                        if (selected.getValue().isDirectory()) {
+                            JOptionPane.showMessageDialog(null, "Pasta Foi Apagada com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Arquivo Foi Apagado com sucesso !.", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ao tentar Excluir !.", "Exclusão", JOptionPane.WARNING_MESSAGE);
+
+                    }
+                }
+
 
         });
 
@@ -367,7 +378,7 @@ public class NavegadorController implements Initializable {
                 return true;
             }
         } else {
-            for (TreeItem<FTPFile> iterator: a.getChildren()){
+            for (TreeItem<FTPFile> iterator : a.getChildren()) {
                 DeletarRecursivo(iterator);
             }
             if (FTPFactory.getInstance().Excluir(a.getValue())) {

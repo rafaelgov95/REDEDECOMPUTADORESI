@@ -77,11 +77,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NavegadorController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NavegadorController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cliente/NavegadorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="168" column="0" lean-forward="true" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+            <state relative-caret-position="219">
+              <caret line="290" column="101" lean-forward="false" selection-start-line="290" selection-start-column="101" selection-end-line="290" selection-end-column="101" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,11 +139,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Node.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/Node.java">
+      <file leaf-file-name="Navegador.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cliente/Navegador.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138060">
-              <caret line="8413" column="0" lean-forward="false" selection-start-line="8413" selection-start-column="0" selection-end-line="8413" selection-end-column="0" />
+            <state relative-caret-position="290">
+              <caret line="112" column="58" lean-forward="false" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -172,11 +175,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FTPFactory.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FTPFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/socket/FTPFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="58" column="20" lean-forward="true" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+            <state relative-caret-position="203">
+              <caret line="55" column="37" lean-forward="true" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -265,10 +268,10 @@
         <option value="$PROJECT_DIR$/src/socket/Limitador.java" />
         <option value="$PROJECT_DIR$/src/cliente/LoginController.java" />
         <option value="$PROJECT_DIR$/src/cliente/Login.fxml" />
-        <option value="$PROJECT_DIR$/src/cliente/Navegador.fxml" />
-        <option value="$PROJECT_DIR$/src/socket/FTPFactory.java" />
-        <option value="$PROJECT_DIR$/src/cliente/NavegadorController.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/cliente/Navegador.fxml" />
+        <option value="$PROJECT_DIR$/src/cliente/NavegadorController.java" />
+        <option value="$PROJECT_DIR$/src/socket/FTPFactory.java" />
       </list>
     </option>
   </component>
@@ -636,12 +639,12 @@
       <workItem from="1500898576099" duration="9963000" />
       <workItem from="1500915753179" duration="4903000" />
       <workItem from="1500923442178" duration="12296000" />
-      <workItem from="1500938582839" duration="5646000" />
+      <workItem from="1500938582839" duration="7804000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117448000" />
+    <option name="totallyTimeSpent" value="119606000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -863,17 +866,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cliente/Navegador.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="48" column="30" lean-forward="false" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138060">
@@ -922,16 +914,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/socket/FTPFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="58" column="20" lean-forward="true" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cliente/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="538">
@@ -951,10 +933,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cliente/Navegador.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="112" column="58" lean-forward="false" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cliente/NavegadorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="168" column="0" lean-forward="true" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+        <state relative-caret-position="219">
+          <caret line="290" column="101" lean-forward="false" selection-start-line="290" selection-start-column="101" selection-end-line="290" selection-end-column="101" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/socket/FTPFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="55" column="37" lean-forward="true" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
