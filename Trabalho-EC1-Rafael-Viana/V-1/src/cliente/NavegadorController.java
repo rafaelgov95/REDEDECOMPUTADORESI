@@ -189,6 +189,7 @@ public class NavegadorController implements Initializable {
                             }
 
                             FTPFile f = new FTPFile();
+
                             f.setRawListing(file);
                             f.setName(file);
                             TreeItem<FTPFile> newItem = new TreeItem<FTPFile>(f, new ImageView(arquivo));
@@ -206,19 +207,19 @@ public class NavegadorController implements Initializable {
                                 selected.getParent().getChildren().add(newItem);
 
                             }
-                            out.close();
+
                             if (!FTPFactory.getInstance().getFTP().completePendingCommand()) {
                                 FTPFactory.getInstance().getFTP().logout();
                                 FTPFactory.getInstance().getFTP().disconnect();
                                 System.err.println("File transfer failed.");
                                 System.exit(1);
                             }
-
+                            out.close();
                             JOptionPane.showMessageDialog(null, "File adicionado com sucesso !!", "File Adicionado", JOptionPane.INFORMATION_MESSAGE);
                             Tree.getSelectionModel().select(newItem);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Apenas 2 pastas por Diretório", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Apenas 2 arquivos por Diretório", "Limite Atingido", JOptionPane.WARNING_MESSAGE);
 
                     }
                 } else {
@@ -267,6 +268,7 @@ public class NavegadorController implements Initializable {
                                         selected.getParent().getChildren().add(newItem);
                                         Tree.getSelectionModel().select(newItem);
                                     } else {
+
                                         JOptionPane.showMessageDialog(null, "Erro pasta já existente nesse diretório.", "Diretório Existente", JOptionPane.ERROR_MESSAGE);
                                     }
                                 }
